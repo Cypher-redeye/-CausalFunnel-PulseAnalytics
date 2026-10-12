@@ -31,7 +31,7 @@ declare global {
 }
 
 /**
- * Believable developer cloud SaaS demo website ("TechFlow Cloud").
+ * Awwwards Site of the Day inspired Developer Cloud Landing Page ("TechFlow Cloud").
  * Real-time event tracking via Pulse Analytics SDK.
  * All clicks and navigation generate genuine events recorded into MongoDB.
  */
@@ -69,7 +69,7 @@ export default function DemoPage() {
   const handleGenerateDemoActivity = async () => {
     if (simulating) return;
     setSimulating(true);
-    setNotification('Simulating realistic user interaction trajectory...');
+    setNotification('Simulating realistic user interaction trajectory across page elements...');
 
     const clickableElements = document.querySelectorAll(
       '[data-demo-interactive="true"]'
@@ -99,7 +99,7 @@ export default function DemoPage() {
     }
 
     setSimulating(false);
-    setNotification('✅ Generated 6 realistic click events and flushed queue to backend!');
+    setNotification('✅ Generated 6 realistic click events and flushed queue to backend API!');
     setTimeout(() => setNotification(null), 4000);
   };
 
@@ -112,22 +112,26 @@ export default function DemoPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#090b10] text-slate-200 antialiased font-sans" data-demo-page="true">
-      {/* Reviewer / Telemetry HUD Strip */}
-      <div className="bg-[#0e131f] text-slate-200 text-xs py-2.5 px-4 sticky top-0 z-50 border-b border-slate-800 shadow-md backdrop-blur-md">
+    <div className="min-h-screen bg-[#05070c] text-slate-200 antialiased font-sans relative overflow-x-hidden selection:bg-cyan-500/30 selection:text-white" data-demo-page="true">
+      {/* Background ambient lighting */}
+      <div className="fixed inset-0 bg-aurora-glow pointer-events-none z-0" />
+      <div className="fixed inset-0 bg-grid-cyber opacity-60 pointer-events-none z-0" />
+
+      {/* Awwwards Telemetry HUD Strip */}
+      <div className="bg-[#090d15]/85 backdrop-blur-2xl text-slate-200 text-xs py-2.5 px-4 sticky top-0 z-50 border-b border-white/[0.08] shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="flex items-center gap-2 font-mono text-[11px] font-bold text-emerald-400 bg-emerald-950/50 px-2.5 py-0.5 rounded-full border border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.2)]">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
               Tracker Active
             </span>
             <span className="text-slate-600 hidden sm:inline">|</span>
             <span className="font-mono text-slate-300 text-xs">
-              Session: <span className="text-white font-semibold">{sessionId.substring(0, 18)}...</span>
+              Session: <span className="text-white font-bold">{sessionId.substring(0, 18)}...</span>
             </span>
             <span className="text-slate-600 hidden md:inline">|</span>
             <span className="text-slate-400 text-xs hidden md:inline font-mono">
-              Clicks: <span className="font-semibold text-emerald-400">{clickCount}</span>
+              Clicks: <span className="font-bold text-emerald-400">{clickCount}</span>
             </span>
           </div>
 
@@ -135,7 +139,7 @@ export default function DemoPage() {
             <button
               onClick={handleGenerateDemoActivity}
               disabled={simulating}
-              className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-3 py-1 rounded-lg transition-colors disabled:opacity-50 shadow-sm"
+              className="inline-flex items-center gap-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold text-xs px-3.5 py-1.5 rounded-xl transition-all disabled:opacity-50 shadow-[0_0_15px_rgba(6,182,212,0.3)]"
               title="Automatically simulate realistic user clicks"
             >
               <Play className="w-3 h-3" />
@@ -143,7 +147,7 @@ export default function DemoPage() {
             </button>
             <button
               onClick={handleManualFlush}
-              className="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-2.5 py-1 rounded-lg border border-slate-700 transition-colors"
+              className="inline-flex items-center gap-1.5 bg-white/[0.04] hover:bg-white/[0.08] text-slate-300 text-xs px-3 py-1.5 rounded-xl border border-white/10 transition-colors"
               title="Flush event queue to API immediately"
             >
               <RotateCw className="w-3 h-3" />
@@ -151,7 +155,7 @@ export default function DemoPage() {
             </button>
             <Link
               to="/"
-              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs px-3 py-1 rounded-lg transition-colors shadow-sm"
+              className="inline-flex items-center gap-1.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-xs px-3.5 py-1.5 rounded-xl transition-all shadow-[0_0_15px_rgba(16,185,129,0.25)]"
             >
               Dashboard <ExternalLink className="w-3 h-3" />
             </Link>
@@ -160,32 +164,32 @@ export default function DemoPage() {
       </div>
 
       {notification && (
-        <div className="bg-emerald-950/80 border-b border-emerald-500/30 text-emerald-300 text-center text-xs py-2 px-4 animate-fade-in font-mono">
+        <div className="bg-emerald-950/80 border-b border-emerald-500/30 text-emerald-300 text-center text-xs py-2 px-4 animate-fade-in font-mono relative z-50">
           {notification}
         </div>
       )}
 
-      {/* Modern Developer Navigation Header */}
-      <header className="border-b border-slate-800/80 bg-[#0d1017]/80 backdrop-blur-md">
+      {/* Luxury Awwwards Navigation Header */}
+      <header className="border-b border-white/[0.08] bg-[#090d15]/70 backdrop-blur-2xl relative z-10">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-8">
             <div
-              className="flex items-center gap-2 text-white font-bold tracking-tight cursor-pointer"
+              className="flex items-center gap-2.5 text-white font-extrabold tracking-tight cursor-pointer font-display"
               data-demo-interactive="true"
             >
-              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+              <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center text-white shadow-[0_0_15px_rgba(6,182,212,0.35)]">
                 <Zap className="w-4 h-4" />
               </div>
-              <span className="text-base tracking-tight">TechFlow</span>
+              <span className="text-base tracking-tight font-display">TechFlow Cloud</span>
             </div>
 
             <nav className="hidden md:flex items-center gap-1">
               <button
                 onClick={() => handleTabChange('features')}
-                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
+                className={`text-xs font-semibold px-3.5 py-2 rounded-xl transition-all font-display ${
                   activeTab === 'features'
-                    ? 'text-white bg-slate-800 border border-slate-700'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    ? 'text-white bg-white/[0.08] border border-white/15 shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                 }`}
                 data-demo-interactive="true"
               >
@@ -193,10 +197,10 @@ export default function DemoPage() {
               </button>
               <button
                 onClick={() => handleTabChange('pricing')}
-                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
+                className={`text-xs font-semibold px-3.5 py-2 rounded-xl transition-all font-display ${
                   activeTab === 'pricing'
-                    ? 'text-white bg-slate-800 border border-slate-700'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    ? 'text-white bg-white/[0.08] border border-white/15 shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                 }`}
                 data-demo-interactive="true"
               >
@@ -204,10 +208,10 @@ export default function DemoPage() {
               </button>
               <button
                 onClick={() => handleTabChange('reviews')}
-                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
+                className={`text-xs font-semibold px-3.5 py-2 rounded-xl transition-all font-display ${
                   activeTab === 'reviews'
-                    ? 'text-white bg-slate-800 border border-slate-700'
-                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
+                    ? 'text-white bg-white/[0.08] border border-white/15 shadow-sm'
+                    : 'text-slate-400 hover:text-white hover:bg-white/[0.04]'
                 }`}
                 data-demo-interactive="true"
               >
@@ -218,13 +222,13 @@ export default function DemoPage() {
 
           <div className="flex items-center gap-3">
             <button
-              className="text-xs font-medium text-slate-400 hover:text-white px-3 py-1.5 transition-colors"
+              className="text-xs font-mono font-medium text-slate-400 hover:text-white px-3 py-1.5 transition-colors"
               data-demo-interactive="true"
             >
               Sign In
             </button>
             <button
-              className="text-xs font-medium bg-blue-600 text-white px-3.5 py-1.5 rounded-lg hover:bg-blue-500 transition-colors shadow-sm shadow-blue-600/30"
+              className="text-xs font-bold bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-4 py-2 rounded-xl hover:from-cyan-400 hover:to-blue-500 transition-all shadow-[0_0_20px_rgba(6,182,212,0.35)]"
               data-demo-interactive="true"
             >
               Get Started
@@ -234,55 +238,56 @@ export default function DemoPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="relative py-20 px-4 overflow-hidden border-b border-slate-800/80 bg-grid-subtle">
+      <section className="relative py-24 px-4 overflow-hidden border-b border-white/[0.08] z-10">
         <div className="max-w-4xl mx-auto text-center relative z-10">
           <div
-            className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-xs font-mono mb-6 cursor-pointer hover:bg-blue-500/20 transition-colors"
+            className="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 px-3.5 py-1.5 rounded-full text-xs font-mono mb-6 cursor-pointer hover:bg-cyan-500/20 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)]"
             data-demo-interactive="true"
           >
-            <Sparkles className="w-3.5 h-3.5" /> Next-Gen Cloud Platform v2.4 Released
+            <Sparkles className="w-3.5 h-3.5" /> Architecting The Autonomous Cloud Edge
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight tracking-tight">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white mb-6 leading-tight tracking-tight font-display text-gradient-silver">
             Build Intelligent Applications at
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400"> Global Scale</span>
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-400 to-emerald-400"> Global Scale</span>
           </h1>
 
-          <p className="text-sm md:text-base text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
-            A developer platform combining serverless compute, instant edge databases,
-            and automated telemetry tracking. Every click on this page is captured by Pulse Analytics.
+          <p className="text-sm md:text-base text-slate-400 mb-9 max-w-2xl mx-auto leading-relaxed">
+            A developer cloud platform combining distributed V8 isolates, real-time edge persistence,
+            and automated telemetry tracking. Every interaction on this page streams directly to Pulse Analytics.
           </p>
 
-          <div className="flex items-center justify-center gap-3 flex-wrap">
+          <div className="flex items-center justify-center gap-3.5 flex-wrap">
             <button
-              className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 shadow-lg shadow-blue-600/25"
+              className="bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:opacity-95 text-white px-6 py-3 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-[0_0_25px_rgba(6,182,212,0.35)]"
               data-demo-interactive="true"
             >
-              Deploy Free Cluster <ArrowRight className="w-3.5 h-3.5" />
+              Deploy Free Cluster <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              className="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors"
+              className="bg-slate-900/80 hover:bg-slate-800 text-slate-300 border border-white/10 px-6 py-3 rounded-xl text-xs font-bold transition-colors shadow-sm"
               data-demo-interactive="true"
             >
               Explore Architecture
             </button>
           </div>
 
-          {/* Interactive Code Preview Window */}
-          <div className="mt-12 max-w-2xl mx-auto rounded-xl border border-slate-800 bg-[#0d111a] shadow-2xl overflow-hidden text-left">
-            <div className="px-4 py-3 bg-[#0a0d14] border-b border-slate-800 flex items-center justify-between">
+          {/* Interactive Code Preview Window with Awwwards Hologram Look */}
+          <div className="mt-14 max-w-2xl mx-auto rounded-2xl border border-white/10 bg-[#080d17]/90 backdrop-blur-2xl shadow-[0_20px_50px_rgba(0,0,0,0.7)] overflow-hidden text-left relative group">
+            <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent" />
+            <div className="px-4 py-3 bg-[#060911]/80 border-b border-white/[0.08] flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <span className="w-3 h-3 rounded-full bg-red-500/80" />
-                <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
-                <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80" />
                 <span className="ml-2 text-xs font-mono text-slate-500">pipeline.telemetry.ts</span>
               </div>
-              <Terminal className="w-4 h-4 text-slate-500" />
+              <Terminal className="w-4 h-4 text-cyan-400" />
             </div>
-            <div className="p-4 font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto">
+            <div className="p-5 font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto">
               <p><span className="text-purple-400">import</span> &#123; createTracker &#125; <span className="text-purple-400">from</span> <span className="text-emerald-400">'@pulse/tracker-sdk'</span>;</p>
-              <p className="mt-1 text-slate-500">// Instant automatic session identification & click heatmap</p>
-              <p className="mt-1"><span className="text-blue-400">const</span> analytics = <span className="text-yellow-400">createTracker</span>(&#123; batchSize: <span className="text-amber-400">5</span>, intervalMs: <span className="text-amber-400">2000</span> &#125;);</p>
+              <p className="mt-1.5 text-slate-500">// Instant automatic session identification & click heatmap</p>
+              <p className="mt-1.5"><span className="text-cyan-400">const</span> analytics = <span className="text-yellow-400">createTracker</span>(&#123; batchSize: <span className="text-amber-400">5</span>, intervalMs: <span className="text-amber-400">2000</span> &#125;);</p>
               <p><span className="text-slate-400">analytics</span>.<span className="text-yellow-400">observe</span>(document.body);</p>
             </div>
           </div>
@@ -290,15 +295,15 @@ export default function DemoPage() {
       </section>
 
       {/* Interactive Search Section */}
-      <section className="py-8 px-4 max-w-2xl mx-auto">
+      <section className="py-8 px-4 max-w-2xl mx-auto relative z-10">
         <div className="relative">
-          <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-500" />
+          <Search className="w-4 h-4 absolute left-3.5 top-3.5 text-slate-500" />
           <input
             type="text"
             placeholder="Search API endpoints, edge functions, telemetry logs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 bg-slate-900/80 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner"
+            className="w-full pl-10 pr-4 py-3 bg-slate-950/80 border border-white/10 rounded-2xl text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 transition-all shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
             data-demo-interactive="true"
           />
         </div>
@@ -306,39 +311,43 @@ export default function DemoPage() {
 
       {/* Tab: Features */}
       {activeTab === 'features' && (
-        <section className="py-12 px-4 max-w-6xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold tracking-tight text-white">Full-Stack Cloud Infrastructure</h2>
-            <p className="text-slate-400 text-xs mt-1">Engineered for low latency and high observability</p>
+        <section className="py-14 px-4 max-w-6xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white font-display text-gradient-silver">
+              Full-Stack Cloud Infrastructure
+            </h2>
+            <p className="text-slate-400 text-xs font-mono mt-1.5">Engineered for sub-10ms latency and high observability</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: <Cpu className="w-5 h-5 text-blue-400" />,
+                icon: <Cpu className="w-5 h-5 text-cyan-400" />,
                 title: 'Edge Compute Engine',
-                description: 'Distributed V8 isolates executing at over 300 locations worldwide under 10ms.',
+                description: 'Distributed V8 isolates executing at over 300 edge locations worldwide with cold-start acceleration.',
               },
               {
                 icon: <BarChart3 className="w-5 h-5 text-emerald-400" />,
                 title: 'Real-time Telemetry',
-                description: 'Capture user sessions, bounce dropoffs, and coordinate heatmaps without page lag.',
+                description: 'Capture user sessions, bounce dropoffs, and coordinate heatmaps without impacting page rendering speed.',
               },
               {
                 icon: <Shield className="w-5 h-5 text-purple-400" />,
                 title: 'Encrypted Persistence',
-                description: 'MongoDB Atlas integration with resilient batch queue flushing and audit trails.',
+                description: 'MongoDB Atlas integration with resilient batch queue flushing, beacon reliability, and strict validation.',
               },
             ].map((f) => (
               <div
                 key={f.title}
-                className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 hover:border-slate-700 hover:bg-slate-900/80 transition-all cursor-pointer group shadow-lg shadow-black/20"
+                className="rounded-2xl border border-white/[0.08] bg-slate-950/60 backdrop-blur-xl p-6 hover:border-white/20 hover:bg-slate-900/80 transition-all cursor-pointer group shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
                 data-demo-interactive="true"
               >
-                <div className="p-2.5 bg-slate-800/80 rounded-lg w-fit mb-4 border border-slate-700/60">{f.icon}</div>
-                <h3 className="text-base font-semibold text-white mb-2">{f.title}</h3>
-                <p className="text-xs text-slate-400 leading-relaxed">{f.description}</p>
-                <div className="mt-4 flex items-center text-xs font-mono text-blue-400 group-hover:text-blue-300">
-                  Inspect docs <ChevronRight className="w-3.5 h-3.5 ml-0.5 group-hover:translate-x-1 transition-transform" />
+                <div className="p-3 bg-white/[0.04] rounded-xl w-fit mb-4 border border-white/10 group-hover:scale-110 transition-transform">
+                  {f.icon}
+                </div>
+                <h3 className="text-base font-bold text-white mb-2 font-display">{f.title}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed font-sans">{f.description}</p>
+                <div className="mt-5 flex items-center text-xs font-mono text-cyan-400 group-hover:text-cyan-300">
+                  Inspect docs <ChevronRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-1.5 transition-transform" />
                 </div>
               </div>
             ))}
@@ -348,10 +357,12 @@ export default function DemoPage() {
 
       {/* Tab: Pricing */}
       {activeTab === 'pricing' && (
-        <section className="py-12 px-4 max-w-5xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold tracking-tight text-white">Transparent Developer Pricing</h2>
-            <p className="text-slate-400 text-xs mt-1">Scale effortlessly from side project to enterprise</p>
+        <section className="py-14 px-4 max-w-5xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white font-display text-gradient-silver">
+              Transparent Developer Pricing
+            </h2>
+            <p className="text-slate-400 text-xs font-mono mt-1.5">Scale effortlessly from side project to global enterprise</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
@@ -361,29 +372,29 @@ export default function DemoPage() {
             ].map((p) => (
               <div
                 key={p.name}
-                className={`rounded-xl p-6 border transition-all ${
+                className={`rounded-2xl p-6 border transition-all ${
                   p.popular
-                    ? 'border-blue-500/80 bg-slate-900/90 ring-1 ring-blue-500/50 shadow-xl shadow-blue-500/10'
-                    : 'border-slate-800 bg-slate-900/50 hover:border-slate-700'
+                    ? 'border-cyan-500/70 bg-slate-950/90 ring-1 ring-cyan-500/40 shadow-[0_0_35px_rgba(6,182,212,0.2)]'
+                    : 'border-white/[0.08] bg-slate-950/50 hover:border-white/20'
                 }`}
                 data-demo-interactive="true"
               >
                 {p.popular && (
-                  <span className="bg-blue-600 text-white text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-3 inline-block">
+                  <span className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white text-[10px] font-mono font-bold uppercase tracking-widest px-2.5 py-0.5 rounded-full mb-3 inline-block shadow-[0_0_10px_rgba(6,182,212,0.3)]">
                     Recommended
                   </span>
                 )}
-                <h3 className="text-base font-bold text-white">{p.name}</h3>
-                <div className="my-3 flex items-baseline gap-1">
+                <h3 className="text-base font-bold text-white font-display">{p.name}</h3>
+                <div className="my-3 flex items-baseline gap-1.5">
                   <span className="text-3xl font-extrabold font-mono text-white">{p.price}</span>
                   <span className="text-xs text-slate-500 font-mono"> / month</span>
                 </div>
-                <p className="text-xs text-slate-400 mb-6">{p.desc}</p>
+                <p className="text-xs text-slate-400 mb-6 font-sans">{p.desc}</p>
                 <button
-                  className={`w-full py-2 px-4 rounded-lg text-xs font-semibold transition-colors ${
+                  className={`w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all ${
                     p.popular
-                      ? 'bg-blue-600 text-white hover:bg-blue-500 shadow-md shadow-blue-600/30'
-                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
+                      ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white hover:from-cyan-400 hover:to-blue-500 shadow-[0_0_20px_rgba(6,182,212,0.3)]'
+                      : 'bg-white/[0.05] text-slate-300 hover:bg-white/[0.1] border border-white/10'
                   }`}
                   data-demo-interactive="true"
                 >
@@ -397,10 +408,12 @@ export default function DemoPage() {
 
       {/* Tab: Reviews */}
       {activeTab === 'reviews' && (
-        <section className="py-12 px-4 max-w-4xl mx-auto">
-          <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold tracking-tight text-white">Trusted by Engineering Teams</h2>
-            <p className="text-slate-400 text-xs mt-1">Real feedback from infrastructure engineers</p>
+        <section className="py-14 px-4 max-w-4xl mx-auto relative z-10">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-extrabold tracking-tight text-white font-display text-gradient-silver">
+              Trusted by Engineering Teams
+            </h2>
+            <p className="text-slate-400 text-xs font-mono mt-1.5">Real feedback from infrastructure engineers</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
@@ -417,16 +430,16 @@ export default function DemoPage() {
             ].map((t) => (
               <div
                 key={t.author}
-                className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 cursor-pointer hover:border-slate-700 transition-all shadow-lg shadow-black/20"
+                className="rounded-2xl border border-white/[0.08] bg-slate-950/60 backdrop-blur-xl p-6 cursor-pointer hover:border-white/20 transition-all shadow-[0_8px_32px_rgba(0,0,0,0.4)]"
                 data-demo-interactive="true"
               >
-                <div className="flex gap-1 mb-3">
+                <div className="flex gap-1 mb-3.5">
                   {[1, 2, 3, 4, 5].map((s) => (
                     <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
                 <p className="text-slate-300 text-xs mb-4 italic leading-relaxed">"{t.quote}"</p>
-                <p className="text-xs font-semibold text-white">{t.author}</p>
+                <p className="text-xs font-bold text-white font-display">{t.author}</p>
                 <p className="text-[11px] font-mono text-slate-500">{t.role}</p>
               </div>
             ))}
@@ -435,17 +448,17 @@ export default function DemoPage() {
       )}
 
       {/* Bottom CTA Banner */}
-      <section className="py-16 px-4 border-t border-slate-800/80 bg-[#0d1017]">
+      <section className="py-16 px-4 border-t border-white/[0.08] bg-[#070a13] relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <Globe className="w-8 h-8 text-blue-400 mx-auto mb-3" />
-          <h2 className="text-xl font-bold text-white mb-2">Ready to inspect your analytics?</h2>
-          <p className="text-slate-400 text-xs mb-6 max-w-md mx-auto">
+          <Globe className="w-8 h-8 text-cyan-400 mx-auto mb-3" />
+          <h2 className="text-2xl font-bold text-white mb-2 font-display">Ready to inspect your analytics?</h2>
+          <p className="text-slate-400 text-xs mb-6 max-w-md mx-auto font-mono">
             Switch over to the Pulse Analytics Dashboard to see your generated sessions and click heatmaps updated in real time.
           </p>
           <div className="flex justify-center gap-3">
             <Link
               to="/"
-              className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors inline-flex items-center gap-2 shadow-lg shadow-blue-600/20"
+              className="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white px-5 py-2.5 rounded-xl text-xs font-bold transition-all inline-flex items-center gap-2 shadow-[0_0_20px_rgba(6,182,212,0.3)]"
               data-demo-interactive="true"
             >
               Open Analytics Dashboard <ExternalLink className="w-3.5 h-3.5" />
@@ -455,9 +468,9 @@ export default function DemoPage() {
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 py-6 px-4 text-xs font-mono text-slate-500">
+      <footer className="border-t border-white/[0.08] py-6 px-4 text-xs font-mono text-slate-500 relative z-10">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-          <p>© 2024 TechFlow Cloud Platform. Tracked with Pulse Analytics.</p>
+          <p>© 2024 TechFlow Cloud Platform. Tracked with Pulse Analytics SDK.</p>
           <div className="flex items-center gap-4">
             <span className="hover:text-slate-300 cursor-pointer" data-demo-interactive="true">
               Privacy Policy

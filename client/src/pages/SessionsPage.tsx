@@ -56,28 +56,32 @@ export default function SessionsPage() {
   const { meta } = data;
 
   return (
-    <div className="space-y-6">
-      {/* Header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-1 border-b border-slate-800/80">
+    <div className="space-y-6 relative">
+      {/* Editorial Header bar */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <Users className="w-5 h-5 text-blue-400" />
-            <h2 className="text-xl font-bold tracking-tight text-white">Sessions</h2>
-            <span className="text-xs font-mono px-2 py-0.5 rounded-full border border-slate-800 bg-slate-900/80 text-slate-400">
+          <div className="flex items-center gap-3 mb-1.5">
+            <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+              <Users className="w-5 h-5" />
+            </div>
+            <h2 className="text-2xl font-extrabold tracking-tight text-white font-display text-gradient-silver">
+              Sessions
+            </h2>
+            <span className="text-xs font-mono px-3 py-1 rounded-full border border-white/10 bg-white/[0.03] text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.15)]">
               {meta.total} total session{meta.total !== 1 ? 's' : ''}
             </span>
           </div>
-          <p className="text-xs text-slate-400">
-            Inspect individual user sessions, interaction volumes, and timestamps
+          <p className="text-xs font-mono text-slate-400">
+            [ ARCHIVE // INGESTED CLIENT SESSIONS & EVENT TIMESTAMPS ]
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2.5">
           <button
             onClick={refetch}
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-slate-300 hover:text-white bg-slate-800/90 hover:bg-slate-700/90 border border-slate-700/80 rounded-lg transition-colors shadow-sm"
+            className="inline-flex items-center gap-2 px-4 py-2 text-xs font-mono font-medium text-slate-200 hover:text-white bg-white/[0.04] hover:bg-white/[0.08] border border-white/10 rounded-xl transition-all shadow-sm hover:border-white/20"
           >
-            <RefreshCw className="w-3.5 h-3.5 text-slate-400" />
+            <RefreshCw className="w-3.5 h-3.5 text-cyan-400" />
             Refresh
           </button>
         </div>
@@ -86,50 +90,50 @@ export default function SessionsPage() {
       {/* Search and filter controls */}
       <div className="flex items-center gap-3">
         <div className="relative flex-1">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3 top-2.5" />
+          <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
           <input
             type="text"
             placeholder="Search by session ID..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 bg-slate-900/60 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500/80 focus:ring-1 focus:ring-blue-500/80 transition-all"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-950/70 border border-white/10 rounded-xl text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 transition-all shadow-inner"
           />
         </div>
-        <div className="hidden sm:flex items-center gap-1.5 text-xs font-mono text-slate-500 px-3 py-2 rounded-lg border border-slate-800 bg-slate-950/40">
-          <Filter className="w-3.5 h-3.5 text-slate-400" />
+        <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-400 px-3.5 py-2.5 rounded-xl border border-white/10 bg-slate-950/50 backdrop-blur-md">
+          <Filter className="w-3.5 h-3.5 text-cyan-400" />
           <span>Page {meta.page} / {meta.totalPages || 1}</span>
         </div>
       </div>
 
-      {/* Sessions table */}
-      <div className="rounded-xl border border-slate-800/90 bg-slate-900/60 backdrop-blur-md shadow-lg shadow-black/20 overflow-hidden">
+      {/* Luxury Sessions table */}
+      <div className="rounded-2xl border border-white/[0.08] bg-slate-950/60 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.4)] overflow-hidden relative">
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
             <thead>
-              <tr className="border-b border-slate-800/80 bg-slate-950/40 text-slate-400 font-mono">
-                <th className="py-3 px-5 font-medium">Session ID</th>
-                <th className="text-right py-3 px-5 font-medium">Total Events</th>
-                <th className="text-right py-3 px-5 font-medium">Page Views</th>
-                <th className="text-right py-3 px-5 font-medium">Clicks</th>
-                <th className="text-right py-3 px-5 font-medium">First Activity</th>
-                <th className="text-right py-3 px-5 font-medium">Last Activity</th>
-                <th className="w-10"></th>
+              <tr className="border-b border-white/[0.08] bg-white/[0.02] text-slate-400 font-mono text-[11px]">
+                <th className="py-3.5 px-6 font-medium">Session ID</th>
+                <th className="text-right py-3.5 px-6 font-medium">Total Events</th>
+                <th className="text-right py-3.5 px-6 font-medium">Page Views</th>
+                <th className="text-right py-3.5 px-6 font-medium">Clicks</th>
+                <th className="text-right py-3.5 px-6 font-medium">First Activity</th>
+                <th className="text-right py-3.5 px-6 font-medium">Last Activity</th>
+                <th className="w-12"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/60">
+            <tbody className="divide-y divide-white/[0.04]">
               {filteredSessions.map((s: SessionSummary) => (
                 <tr
                   key={s.session_id}
-                  className="hover:bg-slate-800/40 cursor-pointer transition-colors group"
+                  className="hover:bg-white/[0.03] cursor-pointer transition-colors group"
                   onClick={() => navigate(`/sessions/${s.session_id}`)}
                 >
-                  <td className="py-3.5 px-5 font-mono text-blue-400 group-hover:text-blue-300">
-                    <div className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-blue-500 group-hover:scale-125 transition-transform shrink-0" />
+                  <td className="py-4 px-6 font-mono text-cyan-400 group-hover:text-cyan-300">
+                    <div className="flex items-center gap-2.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 group-hover:scale-125 transition-transform shrink-0 shadow-[0_0_8px_#22d3ee]" />
                       <span className="font-semibold">{truncateSessionId(s.session_id, 24)}</span>
                       <button
                         onClick={(e) => handleCopyId(e, s.session_id)}
-                        className="opacity-0 group-hover:opacity-100 p-1 rounded hover:bg-slate-700/60 text-slate-400 hover:text-white transition-opacity"
+                        className="opacity-0 group-hover:opacity-100 p-1 rounded-md hover:bg-white/10 text-slate-400 hover:text-white transition-opacity"
                         title="Copy Session ID"
                       >
                         {copiedId === s.session_id ? (
@@ -140,25 +144,25 @@ export default function SessionsPage() {
                       </button>
                     </div>
                   </td>
-                  <td className="py-3.5 px-5 text-right font-mono font-medium text-white">
-                    <span className="px-2 py-0.5 rounded bg-slate-800 border border-slate-700/60">
+                  <td className="py-4 px-6 text-right font-mono font-bold text-white">
+                    <span className="px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/5">
                       {s.total_events}
                     </span>
                   </td>
-                  <td className="py-3.5 px-5 text-right font-mono text-slate-400">
+                  <td className="py-4 px-6 text-right font-mono text-slate-400">
                     {s.page_views}
                   </td>
-                  <td className="py-3.5 px-5 text-right font-mono text-emerald-400">
+                  <td className="py-4 px-6 text-right font-mono text-emerald-400 font-semibold">
                     {s.clicks}
                   </td>
-                  <td className="py-3.5 px-5 text-right font-mono text-slate-400">
+                  <td className="py-4 px-6 text-right font-mono text-slate-400">
                     {formatDate(s.first_event_at)}
                   </td>
-                  <td className="py-3.5 px-5 text-right font-mono text-slate-400">
+                  <td className="py-4 px-6 text-right font-mono text-slate-400">
                     {formatDate(s.last_event_at)}
                   </td>
-                  <td className="py-3.5 pr-4 text-right">
-                    <ArrowRight className="w-3.5 h-3.5 text-slate-600 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all" />
+                  <td className="py-4 pr-5 text-right">
+                    <ArrowRight className="w-4 h-4 text-slate-600 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all" />
                   </td>
                 </tr>
               ))}
@@ -167,26 +171,26 @@ export default function SessionsPage() {
         </div>
 
         {/* Pagination controls */}
-        <div className="flex items-center justify-between px-5 py-3 border-t border-slate-800/80 bg-slate-950/40">
+        <div className="flex items-center justify-between px-6 py-4 border-t border-white/[0.08] bg-white/[0.01]">
           <span className="text-[11px] font-mono text-slate-400">
             Page {meta.page} of {meta.totalPages || 1} · Showing {filteredSessions.length} session{filteredSessions.length !== 1 ? 's' : ''}
           </span>
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center gap-2">
             <button
               onClick={() => setPage((p) => Math.max(1, p - 1))}
               disabled={page === 1}
-              className="p-1.5 rounded-lg border border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-xl border border-white/10 bg-slate-900/80 hover:bg-white/10 text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               title="Previous Page"
             >
               <ChevronLeft className="w-4 h-4" />
             </button>
-            <span className="text-xs font-mono text-slate-400 px-2">
+            <span className="text-xs font-mono text-cyan-400 px-3 font-semibold">
               {meta.page}
             </span>
             <button
               onClick={() => setPage((p) => Math.min(meta.totalPages, p + 1))}
               disabled={page >= meta.totalPages}
-              className="p-1.5 rounded-lg border border-slate-800 bg-slate-900/80 hover:bg-slate-800 text-slate-400 hover:text-white disabled:opacity-40 disabled:cursor-not-allowed transition-colors"
+              className="p-2 rounded-xl border border-white/10 bg-slate-900/80 hover:bg-white/10 text-slate-400 hover:text-white disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
               title="Next Page"
             >
               <ChevronRight className="w-4 h-4" />
