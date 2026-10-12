@@ -1,6 +1,6 @@
 # Pulse Analytics — Full-Stack User Analytics Platform
 
-[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&logoColor=white)](https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics)
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&logoColor=white)](https://github.com/Cypher-redeye/CausalFunnel-PulseAnalytics)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
 [![Express](https://img.shields.io/badge/Express-4.21-000000?logo=express&logoColor=white)](https://expressjs.com/)
@@ -150,8 +150,8 @@ Clone the repository and install dependencies for both the frontend and backend:
 
 ```bash
 # 1. Clone repository
-git clone https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics.git
-cd -CausalFunnel-PulseAnalytics
+git clone https://github.com/Cypher-redeye/CausalFunnel-PulseAnalytics.git
+cd CausalFunnel-PulseAnalytics
 
 # 2. Install backend dependencies
 cd server
@@ -277,7 +277,7 @@ flowchart TD
 
 ### Step 2: Backend API Deployment on Render
 1. Sign up at [render.com](https://render.com) and click **New +** → **Web Service**.
-2. Connect your GitHub repository: `https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics`.
+2. Connect your GitHub repository: `https://github.com/Cypher-redeye/CausalFunnel-PulseAnalytics`.
 3. Configure the service settings:
    - **Name**: `pulse-analytics-api`
    - **Root Directory**: `server`
@@ -301,7 +301,7 @@ flowchart TD
 
 ### Step 3: Frontend Dashboard Deployment on Vercel
 1. Sign up at [vercel.com](https://vercel.com) and click **Add New...** → **Project**.
-2. Import the `https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics` repository.
+2. Import the `https://github.com/Cypher-redeye/CausalFunnel-PulseAnalytics` repository.
 3. Configure Project Settings:
    - **Framework Preset**: `Vite`
    - **Root Directory**: Click **Edit** and select `client`
