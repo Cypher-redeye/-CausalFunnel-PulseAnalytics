@@ -80,11 +80,11 @@ export default function HeatmapPage() {
         const radius = 54; // Generous radiant glow
 
         const grad = ctx.createRadialGradient(nx, ny, 0, nx, ny, radius);
-        grad.addColorStop(0, 'rgba(244, 63, 94, 0.75)');    // Vivid Rose/Red hot core
-        grad.addColorStop(0.35, 'rgba(245, 158, 11, 0.55)'); // Amber mid
-        grad.addColorStop(0.65, 'rgba(16, 185, 129, 0.35)'); // Emerald ring
-        grad.addColorStop(0.85, 'rgba(6, 182, 212, 0.2)');   // Cyan halo
-        grad.addColorStop(1, 'rgba(6, 182, 212, 0)');        // Transparent edge
+        grad.addColorStop(0, 'rgba(254, 243, 199, 0.95)');   // White-hot champagne core
+        grad.addColorStop(0.25, 'rgba(245, 158, 11, 0.85)'); // Radiant Amber mid
+        grad.addColorStop(0.55, 'rgba(234, 88, 12, 0.6)');   // Sunset Terracotta ring
+        grad.addColorStop(0.8, 'rgba(225, 29, 72, 0.3)');    // Warm Crimson halo
+        grad.addColorStop(1, 'rgba(225, 29, 72, 0)');        // Transparent edge
 
         ctx.fillStyle = grad;
         ctx.beginPath();
@@ -104,13 +104,13 @@ export default function HeatmapPage() {
         // Outer neon target ring
         ctx.beginPath();
         ctx.arc(nx, ny, 12, 0, Math.PI * 2);
-        ctx.strokeStyle = 'rgba(244, 63, 94, 0.5)';
+        ctx.strokeStyle = 'rgba(245, 158, 11, 0.5)';
         ctx.lineWidth = 1;
         ctx.stroke();
 
         // Target crosshair ticks
         if (typeof ctx.moveTo === 'function' && typeof ctx.lineTo === 'function') {
-          ctx.strokeStyle = 'rgba(244, 63, 94, 0.8)';
+          ctx.strokeStyle = 'rgba(245, 158, 11, 0.8)';
           ctx.lineWidth = 1;
           ctx.beginPath();
           ctx.moveTo(nx - 7, ny);
@@ -123,7 +123,7 @@ export default function HeatmapPage() {
         // Central solid ping
         ctx.beginPath();
         ctx.arc(nx, ny, 3.5, 0, Math.PI * 2);
-        ctx.fillStyle = '#f43f5e';
+        ctx.fillStyle = '#f59e0b';
         ctx.fill();
         ctx.strokeStyle = '#ffffff';
         ctx.lineWidth = 1.5;
@@ -185,32 +185,32 @@ export default function HeatmapPage() {
   return (
     <div className="space-y-6 relative">
       {/* Editorial Header bar */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-stone-800">
         <div>
           <div className="flex items-center gap-3 mb-1.5">
-            <div className="p-2 rounded-xl bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
+            <div className="p-2 rounded-xl bg-amber-500/10 text-amber-400 border border-amber-500/20">
               <Crosshair className="w-5 h-5" />
             </div>
             <h2 className="text-2xl font-extrabold tracking-tight text-white font-display text-gradient-silver">
               Click Heatmap
             </h2>
-            <span className="px-2.5 py-0.5 rounded-full border border-cyan-500/30 bg-cyan-500/10 text-[10px] font-mono text-cyan-400 shadow-[0_0_12px_rgba(6,182,212,0.2)]">
+            <span className="px-2.5 py-0.5 rounded-full border border-amber-500/30 bg-amber-500/10 text-[10px] font-mono text-amber-400 shadow-[0_0_12px_rgba(245,158,11,0.2)]">
               [ SIGNATURE INSTRUMENT ]
             </span>
           </div>
-          <p className="text-xs font-mono text-slate-400">
+          <p className="text-xs font-mono text-stone-400">
             Spatial FLIR thermal density and coordinate telemetry mapped over responsive blueprints
           </p>
         </div>
 
         {/* View mode toggle switch */}
-        <div className="flex items-center gap-1.5 p-1.5 rounded-2xl border border-white/10 bg-slate-950/70 backdrop-blur-xl shadow-sm">
+        <div className="flex items-center gap-1.5 p-1.5 rounded-2xl border border-stone-800 bg-stone-900/80 backdrop-blur-xl shadow-sm">
           <button
             onClick={() => setMode('composite')}
             className={`px-3 py-1.5 text-xs font-mono rounded-xl transition-all ${
               mode === 'composite'
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)]'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-stone-950 font-bold shadow-[0_0_15px_rgba(245,158,11,0.35)]'
+                : 'text-stone-400 hover:text-white'
             }`}
           >
             Composite
@@ -219,8 +219,8 @@ export default function HeatmapPage() {
             onClick={() => setMode('density')}
             className={`px-3 py-1.5 text-xs font-mono rounded-xl transition-all ${
               mode === 'density'
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)]'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-stone-950 font-bold shadow-[0_0_15px_rgba(245,158,11,0.35)]'
+                : 'text-stone-400 hover:text-white'
             }`}
           >
             Density Heat
@@ -229,8 +229,8 @@ export default function HeatmapPage() {
             onClick={() => setMode('radar')}
             className={`px-3 py-1.5 text-xs font-mono rounded-xl transition-all ${
               mode === 'radar'
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-bold shadow-[0_0_15px_rgba(6,182,212,0.3)]'
-                : 'text-slate-400 hover:text-white'
+                ? 'bg-gradient-to-r from-amber-500 to-orange-600 text-stone-950 font-bold shadow-[0_0_15px_rgba(245,158,11,0.35)]'
+                : 'text-stone-400 hover:text-white'
             }`}
           >
             Radar Scatter
@@ -239,8 +239,8 @@ export default function HeatmapPage() {
       </div>
 
       {/* Page selector panel */}
-      <div className="rounded-2xl border border-white/[0.08] bg-slate-950/60 backdrop-blur-xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.4)]">
-        <label className="block text-xs font-mono font-medium uppercase tracking-widest text-slate-400 mb-2.5">
+      <div className="rounded-2xl border border-stone-800/80 bg-stone-900/60 backdrop-blur-xl p-5 shadow-[0_8px_32px_rgba(0,0,0,0.5)]">
+        <label className="block text-xs font-mono font-medium uppercase tracking-widest text-stone-400 mb-2.5">
           Select Tracked Page URL
         </label>
         <div className="relative">
@@ -251,22 +251,22 @@ export default function HeatmapPage() {
               setSelectedUrl(url);
               if (!url) setHeatmapResult(null);
             }}
-            className="w-full appearance-none bg-slate-950/80 border border-white/10 rounded-xl px-4 py-3 pr-10 text-xs font-mono text-slate-200 focus:outline-none focus:border-cyan-500/60 focus:ring-1 focus:ring-cyan-500/60 transition-all cursor-pointer shadow-inner"
+            className="w-full appearance-none bg-stone-900/90 border border-stone-800 rounded-xl px-4 py-3 pr-10 text-xs font-mono text-stone-200 focus:outline-none focus:border-amber-500/60 focus:ring-1 focus:ring-amber-500/60 transition-all cursor-pointer shadow-inner"
           >
-            <option value="" className="bg-slate-900 text-slate-400">Choose a page URL...</option>
+            <option value="" className="bg-stone-900 text-stone-400">Choose a page URL...</option>
             {pages?.map((p) => (
-              <option key={p.page_url} value={p.page_url} className="bg-slate-900 text-slate-200">
+              <option key={p.page_url} value={p.page_url} className="bg-stone-900 text-stone-200">
                 {p.page_url} ({p.click_count} clicks)
               </option>
             ))}
           </select>
-          <ChevronDown className="w-4 h-4 text-cyan-400 absolute right-3.5 top-3.5 pointer-events-none" />
+          <ChevronDown className="w-4 h-4 text-amber-400 absolute right-3.5 top-3.5 pointer-events-none" />
         </div>
       </div>
 
       {/* Visualization Canvas Section */}
       {!selectedUrl ? (
-        <div className="rounded-2xl border border-white/[0.08] bg-slate-950/60 backdrop-blur-xl p-8">
+        <div className="rounded-2xl border border-stone-800/80 bg-stone-900/60 backdrop-blur-xl p-8">
           <EmptyState
             title="Select a page to view its heatmap"
             description="Choose a tracked page URL from the dropdown above to render click density and coordinate scatter"
@@ -277,16 +277,16 @@ export default function HeatmapPage() {
       ) : heatmapError ? (
         <ErrorState message={heatmapError} />
       ) : heatmapResult ? (
-        <div className="rounded-2xl border border-white/[0.08] bg-slate-950/60 backdrop-blur-xl shadow-[0_16px_48px_rgba(0,0,0,0.6)] overflow-hidden relative">
+        <div className="rounded-2xl border border-stone-800/80 bg-stone-900/60 backdrop-blur-xl shadow-[0_16px_48px_rgba(0,0,0,0.7)] overflow-hidden relative">
           {/* Top canvas instrument bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3.5 border-b border-white/[0.08] bg-white/[0.01]">
+          <div className="flex flex-wrap items-center justify-between gap-3 px-6 py-3.5 border-b border-stone-800 bg-white/[0.01]">
             <div className="flex items-center gap-3">
-              <span className="flex items-center gap-2 text-xs font-mono text-emerald-400 font-bold">
-                <MousePointerClick className="w-4 h-4 text-emerald-400" />
+              <span className="flex items-center gap-2 text-xs font-mono text-amber-400 font-bold">
+                <MousePointerClick className="w-4 h-4 text-amber-400" />
                 {heatmapResult.total_clicks} clicks recorded
               </span>
-              <span className="text-slate-600">|</span>
-              <span className="text-[11px] font-mono text-slate-400 truncate max-w-sm">
+              <span className="text-stone-600">|</span>
+              <span className="text-[11px] font-mono text-stone-400 truncate max-w-sm">
                 {heatmapResult.page_url}
               </span>
             </div>
@@ -294,44 +294,44 @@ export default function HeatmapPage() {
             {/* Heat gradient legend */}
             <div className="flex items-center gap-4 text-xs font-mono">
               <div className="flex items-center gap-2">
-                <span className="text-[11px] text-slate-400">Thermal FLIR:</span>
-                <div className="h-2.5 w-28 rounded-full bg-gradient-to-r from-cyan-400 via-emerald-400 via-amber-400 to-rose-500 shadow-[0_0_12px_rgba(244,63,94,0.3)]" />
+                <span className="text-[11px] text-stone-400">Thermal FLIR:</span>
+                <div className="h-2.5 w-28 rounded-full bg-gradient-to-r from-amber-500 via-orange-500 via-rose-500 to-amber-200 shadow-[0_0_12px_rgba(245,158,11,0.3)]" />
               </div>
-              <div className="flex items-center gap-2 text-[10px] text-slate-400">
-                <span className="text-cyan-400">Low</span>
-                <span className="text-amber-400">Medium</span>
-                <span className="text-rose-400">High</span>
+              <div className="flex items-center gap-2 text-[10px] text-stone-400">
+                <span className="text-amber-400 font-bold">Low</span>
+                <span className="text-orange-400 font-bold">Medium</span>
+                <span className="text-rose-400 font-bold">High</span>
               </div>
             </div>
           </div>
 
           {/* Interactive Canvas container with Aerospace HUD styling */}
-          <div className="relative p-6 bg-[#04060a] flex flex-col items-center justify-center overflow-x-auto">
-            <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.8)]">
+          <div className="relative p-6 bg-[#0c0a09] flex flex-col items-center justify-center overflow-x-auto">
+            <div className="relative rounded-xl overflow-hidden border border-stone-800 shadow-[0_0_50px_rgba(0,0,0,0.9)]">
               <canvas
                 ref={canvasRef}
                 width={900}
                 height={600}
                 onMouseMove={handleCanvasMouseMove}
                 onMouseLeave={handleCanvasMouseLeave}
-                className="cursor-crosshair block bg-[#090d15]"
+                className="cursor-crosshair block bg-[#141210]"
                 style={{ maxWidth: '100%', height: 'auto' }}
               />
 
               {/* Live coordinate inspector HUD overlay */}
               {hoveredCoords && (
-                <div className="absolute bottom-4 left-4 px-3.5 py-2 rounded-xl border border-cyan-500/30 bg-slate-950/90 backdrop-blur-xl text-[11px] font-mono text-slate-300 shadow-[0_0_20px_rgba(6,182,212,0.25)] pointer-events-none flex items-center gap-3">
-                  <span className="flex items-center gap-1.5 text-cyan-400 font-semibold">
+                <div className="absolute bottom-4 left-4 px-3.5 py-2 rounded-xl border border-amber-500/30 bg-stone-950/95 backdrop-blur-xl text-[11px] font-mono text-stone-300 shadow-[0_0_20px_rgba(245,158,11,0.25)] pointer-events-none flex items-center gap-3">
+                  <span className="flex items-center gap-1.5 text-amber-400 font-semibold">
                     <Crosshair className="w-3.5 h-3.5" />
                     Canvas: ({hoveredCoords.x}, {hoveredCoords.y})
                   </span>
-                  <span className="text-slate-600">|</span>
-                  <span className="text-emerald-400 font-bold">
+                  <span className="text-stone-600">|</span>
+                  <span className="text-orange-400 font-bold">
                     Doc: ({hoveredCoords.docX}, {hoveredCoords.docY})
                   </span>
                   {nearestClick && (
                     <>
-                      <span className="text-slate-600">|</span>
+                      <span className="text-stone-600">|</span>
                       <span className="text-rose-400 font-bold flex items-center gap-1 animate-pulse">
                         <Zap className="w-3 h-3" />
                         Target Locked
@@ -343,14 +343,14 @@ export default function HeatmapPage() {
             </div>
 
             {/* Heatmap notice */}
-            <div className="mt-4 flex items-center gap-2 text-[11px] font-mono text-slate-400">
-              <Info className="w-3.5 h-3.5 text-cyan-400" />
+            <div className="mt-4 flex items-center gap-2 text-[11px] font-mono text-stone-400">
+              <Info className="w-3.5 h-3.5 text-amber-400" />
               <span>Blueprint maps click coordinates with responsive normalization. Hover to inspect live target telemetry.</span>
             </div>
           </div>
 
           {heatmapResult.total_clicks === 0 && (
-            <div className="px-6 py-8 text-center border-t border-white/[0.08]">
+            <div className="px-6 py-8 text-center border-t border-stone-800">
               <EmptyState
                 title="No clicks recorded for this page"
                 description="Interact with this URL on the demo site to generate heatmap scatter plots"
@@ -364,15 +364,15 @@ export default function HeatmapPage() {
 }
 
 /**
- * Architectural blueprint wireframe rendered to 2D canvas
+ * Architectural blueprint wireframe rendered to 2D canvas (Warm Obsidian & Amber Style)
  */
 function drawArchitecturalWireframe(ctx: CanvasRenderingContext2D, w: number, h: number) {
-  // Deep blueprint base
-  ctx.fillStyle = '#060911';
+  // Deep warm blueprint base
+  ctx.fillStyle = '#141210';
   ctx.fillRect(0, 0, w, h);
 
   // Subtle architectural grid lines
-  ctx.strokeStyle = 'rgba(255, 255, 255, 0.035)';
+  ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
   ctx.lineWidth = 1;
   const gridSize = 30;
   if (typeof ctx.moveTo === 'function' && typeof ctx.lineTo === 'function') {
@@ -391,77 +391,77 @@ function drawArchitecturalWireframe(ctx: CanvasRenderingContext2D, w: number, h:
   }
 
   // --- Header / Navbar Wireframe ---
-  ctx.fillStyle = '#0a0f1b';
+  ctx.fillStyle = '#1c1917';
   ctx.fillRect(0, 0, w, 52);
-  ctx.strokeStyle = '#1e293b';
+  ctx.strokeStyle = '#292524';
   ctx.lineWidth = 1;
   ctx.strokeRect(0, 0, w, 52);
 
   // Logo pill
-  ctx.fillStyle = '#06b6d4';
+  ctx.fillStyle = '#f59e0b';
   ctx.fillRect(24, 16, 20, 20);
-  ctx.fillStyle = '#cbd5e1';
+  ctx.fillStyle = '#f5f5f4';
   ctx.font = 'bold 11px sans-serif';
   ctx.fillText('TechFlow', 52, 30);
 
   // Nav item links
   const navs = ['Features', 'Pricing', 'Reviews', 'Docs'];
   navs.forEach((nav, i) => {
-    ctx.fillStyle = '#64748b';
+    ctx.fillStyle = '#78716c';
     ctx.font = '10px monospace';
     ctx.fillText(nav, 150 + i * 75, 30);
   });
 
   // CTA button in header
-  ctx.fillStyle = '#2563eb';
+  ctx.fillStyle = '#ea580c';
   ctx.fillRect(w - 120, 14, 96, 24);
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 10px sans-serif';
   ctx.fillText('Get Started', w - 104, 30);
 
   // --- Hero Section Wireframe ---
-  ctx.fillStyle = '#080d17';
+  ctx.fillStyle = '#181614';
   ctx.fillRect(0, 52, w, 175);
-  ctx.strokeStyle = '#1e293b';
+  ctx.strokeStyle = '#292524';
   ctx.strokeRect(0, 52, w, 175);
 
   // Hero pill tag
-  ctx.fillStyle = 'rgba(6, 182, 212, 0.15)';
+  ctx.fillStyle = 'rgba(245, 158, 11, 0.15)';
   ctx.fillRect(w * 0.38, 72, w * 0.24, 20);
-  ctx.strokeStyle = 'rgba(6, 182, 212, 0.3)';
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.3)';
   ctx.strokeRect(w * 0.38, 72, w * 0.24, 20);
-  ctx.fillStyle = '#22d3ee';
+  ctx.fillStyle = '#f59e0b';
   ctx.font = '9px monospace';
   ctx.fillText('NEXT-GEN CLOUD PLATFORM', w * 0.40, 85);
 
   // Hero headline placeholder
-  ctx.fillStyle = '#e2e8f0';
+  ctx.fillStyle = '#f5f5f4';
   ctx.fillRect(w * 0.22, 104, w * 0.56, 18);
 
   // Hero subtext line
-  ctx.fillStyle = '#475569';
+  ctx.fillStyle = '#78716c';
   ctx.fillRect(w * 0.28, 130, w * 0.44, 10);
 
   // Hero primary & secondary buttons
-  ctx.fillStyle = '#2563eb';
+  ctx.fillStyle = '#ea580c';
   ctx.fillRect(w * 0.38, 156, w * 0.11, 32);
   ctx.fillStyle = '#ffffff';
   ctx.font = 'bold 10px sans-serif';
   ctx.fillText('Free Trial', w * 0.40, 175);
 
-  ctx.fillStyle = '#1e293b';
+  ctx.fillStyle = '#292524';
   ctx.fillRect(w * 0.51, 156, w * 0.11, 32);
-  ctx.strokeStyle = '#334155';
+  ctx.strokeStyle = '#44403c';
   ctx.strokeRect(w * 0.51, 156, w * 0.11, 32);
-  ctx.fillStyle = '#94a3b8';
+  ctx.fillStyle = '#a8a29e';
   ctx.fillText('Watch Demo', w * 0.53, 175);
 
   // --- Search Bar Section Wireframe ---
-  ctx.fillStyle = '#0a0f1b';
+  ctx.fillStyle = '#1c1917';
   ctx.fillRect(w * 0.2, 240, w * 0.6, 36);
-  ctx.strokeStyle = '#1e293b';
+  ctx.strokeStyle = '#292524';
   ctx.strokeRect(w * 0.2, 240, w * 0.6, 36);
-  ctx.fillStyle = '#475569';
+  ctx.fillStyle = '#78716c';
   ctx.font = '10px monospace';
   ctx.fillText('Search documentation, API, and tutorials...', w * 0.23, 262);
 
@@ -473,40 +473,40 @@ function drawArchitecturalWireframe(ctx: CanvasRenderingContext2D, w: number, h:
   for (let i = 0; i < 3; i++) {
     const cx = 24 + i * (cardW + 12);
 
-    ctx.fillStyle = '#0a0f1b';
+    ctx.fillStyle = '#1c1917';
     ctx.fillRect(cx, cardY, cardW, cardH);
-    ctx.strokeStyle = '#1e293b';
+    ctx.strokeStyle = '#292524';
     ctx.strokeRect(cx, cardY, cardW, cardH);
 
     // Card icon box
-    ctx.fillStyle = '#1e293b';
+    ctx.fillStyle = '#292524';
     ctx.fillRect(cx + 16, cardY + 16, 32, 32);
 
     // Card title
-    ctx.fillStyle = '#cbd5e1';
+    ctx.fillStyle = '#e7e5e4';
     ctx.fillRect(cx + 16, cardY + 60, cardW - 32, 12);
 
     // Card description lines
-    ctx.fillStyle = '#334155';
+    ctx.fillStyle = '#44403c';
     ctx.fillRect(cx + 16, cardY + 84, cardW - 32, 8);
     ctx.fillRect(cx + 16, cardY + 98, cardW - 60, 8);
 
     // Card link button
-    ctx.fillStyle = 'rgba(6, 182, 212, 0.2)';
+    ctx.fillStyle = 'rgba(245, 158, 11, 0.15)';
     ctx.fillRect(cx + 16, cardY + 120, 80, 20);
-    ctx.fillStyle = '#22d3ee';
+    ctx.fillStyle = '#f59e0b';
     ctx.font = '9px monospace';
     ctx.fillText('Learn More →', cx + 24, cardY + 133);
   }
 
   // --- Footer Wireframe ---
   const footerY = h - 55;
-  ctx.fillStyle = '#060911';
+  ctx.fillStyle = '#141210';
   ctx.fillRect(0, footerY, w, 55);
-  ctx.strokeStyle = '#1e293b';
+  ctx.strokeStyle = '#292524';
   ctx.strokeRect(0, footerY, w, 55);
 
-  ctx.fillStyle = '#475569';
+  ctx.fillStyle = '#78716c';
   ctx.font = '10px monospace';
   ctx.fillText('© 2024 TechFlow Platform · Tracked with Pulse Analytics SDK', 24, footerY + 30);
   ctx.fillText('Privacy · Terms · Status', w - 180, footerY + 30);
