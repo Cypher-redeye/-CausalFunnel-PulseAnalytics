@@ -14,11 +14,36 @@ app.use(helmet({
   crossOriginResourcePolicy: { policy: 'cross-origin' },
 }));
 
-// CORS configuration
+// CORS configuration - supports production Vercel/Render deployments & embeddable tracking
+const allowedOrigins = [
+  ...(config.clientUrl ? config.clientUrl.split(',').map((s) => s.trim()) : []),
+  'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:3000',
+  'http://localhost:5000',
+];
+
 app.use(cors({
-  origin: [config.clientUrl, 'http://localhost:5173', 'http://localhost:5174'],
-  methods: ['GET', 'POST'],
-  allowedHeaders: ['Content-Type'],
+  origin: (origin, callback) => {
+    // Allow non-browser requests (e.g. curl, server-to-server, beacon)
+    if (!origin) return callback(null, true);
+    // Permissive if CLIENT_URL is '*' or in non-production
+    if (config.clientUrl === '*' || config.nodeEnv !== 'production') {
+      return callback(null, true);
+    }
+    // Allow configured origins and Vercel/Render domains
+    if (
+      allowedOrigins.includes(origin) ||
+      origin.endsWith('.vercel.app') ||
+      origin.endsWith('.onrender.com')
+    ) {
+      return callback(null, true);
+    }
+    // Allow external client websites where tracker.js is embedded
+    return callback(null, true);
+  },
+  methods: ['GET', 'POST', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: false,
 }));
 

@@ -1,6 +1,27 @@
 # Pulse Analytics — Full-Stack User Analytics Platform
 
+[![GitHub Repository](https://img.shields.io/badge/GitHub-Repository-181717?logo=github&logoColor=white)](https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![Express](https://img.shields.io/badge/Express-4.21-000000?logo=express&logoColor=white)](https://expressjs.com/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas%20%7C%20Local-47A248?logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![Tailwind CSS](https://img.shields.io/badge/TailwindCSS-v4-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+
 Pulse Analytics is a lightweight, privacy-focused web analytics platform inspired by Google Analytics. It tracks browsing sessions, user interactions, and click coordinates using an embeddable, zero-dependency JavaScript tracking client, persisting events in MongoDB and visualizing metrics through a dashboard featuring session aggregations and click heatmaps.
+
+---
+
+## 🌐 Live Production Demo & Architecture
+
+| Component | Service | Live Endpoint | Status |
+|---|---|---|---|
+| **Analytics Dashboard** | Vercel | [https://causalfunnel-pulseanalytics.vercel.app](https://causalfunnel-pulseanalytics.vercel.app) | 🟢 Live |
+| **Interactive Demo Site** | Vercel | [https://causalfunnel-pulseanalytics.vercel.app/demo](https://causalfunnel-pulseanalytics.vercel.app/demo) | 🟢 Live |
+| **REST API Ingestion** | Render | [https://pulse-analytics-api.onrender.com/api](https://pulse-analytics-api.onrender.com/api) | 🟢 Live |
+| **Backend Health Check** | Render | [https://pulse-analytics-api.onrender.com/api/health](https://pulse-analytics-api.onrender.com/api/health) | 🟢 `{"success": true}` |
+| **Database Cluster** | MongoDB Atlas | M0 Free Multi-Cloud Tier | 🟢 Connected |
+
+> **Note**: Free-tier cloud instances (Render) sleep when idle. The first request may take ~30-40 seconds to spin up, after which responses return in under 50ms.
 
 ---
 
@@ -9,18 +30,18 @@ Pulse Analytics is a lightweight, privacy-focused web analytics platform inspire
 Pulse Analytics provides end-to-end visibility into website traffic and interaction patterns:
 - **Embeddable Tracking Script**: A lightweight client script (`tracker.js`) that captures `page_view` and `click` events without impacting host application performance.
 - **RESTful API Backend**: An Express & TypeScript service providing validated ingestion endpoints, session rollups via MongoDB aggregation pipelines, and heatmap spatial queries.
-- **Modern Analytics Dashboard**: A React, TypeScript, and Tailwind CSS web application displaying real-time metrics, interactive charts, session journeys, and page click heatmaps.
+- **Modern Analytics Dashboard**: A React, TypeScript, and Tailwind CSS web application displaying real-time metrics, interactive charts, session journeys, and page click heatmaps in a clean, neutral Awwwards-inspired theme.
 - **Interactive Demo Website**: A sample SaaS landing page instrumented with the tracking script to demonstrate natural event recording and pipeline verification.
 
 ### Interface Gallery
 
 | Analytics Overview | Click Heatmap Visualizer |
 |:---:|:---:|
-| ![Analytics Overview](docs/screenshots/overview.png) | ![Click Heatmap](docs/screenshots/heatmap.png) |
+| ![Analytics Overview](./docs/screenshots/overview.png) | ![Click Heatmap](./docs/screenshots/heatmap.png) |
 
 | User Journey Trace | Session Explorer |
 |:---:|:---:|
-| ![User Journey](docs/screenshots/user_journey.png) | ![Session Explorer](docs/screenshots/sessions.png) |
+| ![User Journey](./docs/screenshots/user_journey.png) | ![Session Explorer](./docs/screenshots/sessions.png) |
 
 ---
 
@@ -129,8 +150,8 @@ Clone the repository and install dependencies for both the frontend and backend:
 
 ```bash
 # 1. Clone repository
-git clone <repository-url>
-cd CausalFunnel
+git clone https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics.git
+cd -CausalFunnel-PulseAnalytics
 
 # 2. Install backend dependencies
 cd server
@@ -140,8 +161,11 @@ npm install
 cd ../client
 npm install
 
-# 4. Return to root
+# 4. Return to workspace root
 cd ..
+
+# Alternatively, install all dependencies from workspace root:
+npm --prefix server install && npm --prefix client install
 ```
 
 ---
@@ -228,12 +252,95 @@ npm run client:dev
 
 ---
 
-## 11. How to Use the Tracking Script
+## 11. Production Deployment Guide
 
-Embed the tracker into any website's HTML before the closing `</body>` tag:
+Deploying Pulse Analytics to the cloud takes approximately 5 minutes across **MongoDB Atlas**, **Render**, and **Vercel**.
 
+```mermaid
+flowchart TD
+    subgraph Cloud Infrastructure
+        A[Client Website / Visitor] -->|1. Loads tracker.js| B[Vercel Frontend]
+        A -->|2. Beacon/POST events| C[Render Express API]
+        C -->|3. Query & Store| D[(MongoDB Atlas Cluster)]
+        B -->|4. REST API Calls| C
+    end
+```
+
+### Step 1: Database Setup on MongoDB Atlas
+1. Sign up at [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas) and create a free **M0 Sandbox** cluster.
+2. Under **Database Access**, create a user (e.g. `pulse_admin`) and set a secure password.
+3. Under **Network Access**, click **Add IP Address** and choose **Allow Access From Anywhere** (`0.0.0.0/0`) so Render instances can connect.
+4. Click **Connect** → **Drivers** (Node.js) and copy the connection string:
+   ```text
+   mongodb+srv://pulse_admin:<password>@cluster0.xyz.mongodb.net/pulse_analytics?retryWrites=true&w=majority
+   ```
+
+### Step 2: Backend API Deployment on Render
+1. Sign up at [render.com](https://render.com) and click **New +** → **Web Service**.
+2. Connect your GitHub repository: `https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics`.
+3. Configure the service settings:
+   - **Name**: `pulse-analytics-api`
+   - **Root Directory**: `server`
+   - **Environment**: `Node`
+   - **Build Command**: `npm install && npm run build`
+   - **Start Command**: `npm start`
+4. Add the following **Environment Variables**:
+   | Key | Value | Notes |
+   |---|---|---|
+   | `NODE_ENV` | `production` | Enables production optimizations |
+   | `PORT` | `10000` | Port assigned by Render |
+   | `MONGODB_URI` | `mongodb+srv://...` | Your MongoDB Atlas connection string from Step 1 |
+   | `CLIENT_URL` | `*` | Permissive for cross-domain analytics tracking |
+   | `RATE_LIMIT_WINDOW_MS` | `60000` | 1 minute window |
+   | `RATE_LIMIT_MAX_REQUESTS` | `300` | Permissive for production tracking |
+5. Click **Create Web Service**. Once deployed, Render will provide your public URL (e.g. `https://pulse-analytics-api.onrender.com`).
+6. Verify the live health check in your browser:
+   `https://pulse-analytics-api.onrender.com/api/health` → `{"success": true, "database": "connected"}`.
+
+*(Alternatively, Render Blueprint users can automatically apply the bundled `render.yaml` with one click).*
+
+### Step 3: Frontend Dashboard Deployment on Vercel
+1. Sign up at [vercel.com](https://vercel.com) and click **Add New...** → **Project**.
+2. Import the `https://github.com/Cypher-redeye/-CausalFunnel-PulseAnalytics` repository.
+3. Configure Project Settings:
+   - **Framework Preset**: `Vite`
+   - **Root Directory**: Click **Edit** and select `client`
+   - **Build Command**: `npm run build`
+   - **Output Directory**: `dist`
+4. Expand **Environment Variables** and add:
+   | Key | Value |
+   |---|---|
+   | `VITE_API_URL` | `https://pulse-analytics-api.onrender.com/api` *(Your Render backend URL from Step 2)* |
+5. Click **Deploy**. Vercel will build and assign your domain (e.g. `https://causalfunnel-pulseanalytics.vercel.app`).
+6. Deep routing is automatically handled by the included `client/vercel.json` rewrite configuration.
+
+### Step 4: End-to-End Production Verification Checklist
+- [x] **Backend Health**: `GET https://pulse-analytics-api.onrender.com/api/health` returns HTTP 200 with database connected.
+- [x] **Frontend Ingestion**: Open the deployed demo page (`https://<your-frontend>.vercel.app/demo`), click interactive elements, and verify the floating tracker badge shows live captured events.
+- [x] **Dashboard Persistence**: Open the dashboard (`https://<your-frontend>.vercel.app/`), verify the session appears in the Sessions table, and confirm click heatmap dots render on the live canvas.
+- [x] **Third-Party Tracker Test**: Embed the `<script>` tag in any external HTML page; verify events ingest cleanly without CORS or mixed-content errors.
+
+---
+
+## 12. How to Use the Tracking Script
+
+Embed the tracker into any website's HTML before the closing `</body>` tag.
+
+#### A. Production Embed (Deployed Web Application)
+To track events on any live website using your deployed infrastructure:
 ```html
-<!-- Embed Pulse Analytics Tracker -->
+<!-- Pulse Analytics Production Tracker -->
+<script
+  src="https://causalfunnel-pulseanalytics.vercel.app/tracker.js"
+  data-api-url="https://pulse-analytics-api.onrender.com/api"
+  defer
+></script>
+```
+
+#### B. Local Development Embed
+For local testing between client (`5173`) and server (`5000`):
+```html
+<!-- Pulse Analytics Local Development Tracker -->
 <script
   src="http://localhost:5173/tracker.js"
   data-api-url="http://localhost:5000/api"

@@ -41,7 +41,15 @@
     return null;
   })();
 
-  var API_URL = (scriptTag && scriptTag.getAttribute('data-api-url')) || 'http://localhost:5000/api';
+  var scriptApiUrl = scriptTag && scriptTag.getAttribute('data-api-url');
+  var isHttps = typeof window !== 'undefined' && window.location && window.location.protocol === 'https:';
+  var isLocalScriptUrl = scriptApiUrl && scriptApiUrl.indexOf('http://localhost') === 0;
+  var globalApiUrl = typeof window !== 'undefined' && window.__PULSE_API_URL__;
+
+  // If deployed over HTTPS and script has a localhost attribute, prefer globalApiUrl to avoid mixed content
+  var API_URL = (isHttps && isLocalScriptUrl && globalApiUrl)
+    ? globalApiUrl
+    : (scriptApiUrl || globalApiUrl || 'http://localhost:5000/api');
   var DEBUG = (scriptTag && scriptTag.getAttribute('data-debug') === 'true') || false;
 
   function log() {
