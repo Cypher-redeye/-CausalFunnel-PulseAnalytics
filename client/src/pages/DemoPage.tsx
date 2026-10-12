@@ -7,11 +7,13 @@ import {
   Zap,
   Shield,
   BarChart3,
-  Users,
   Globe,
   ExternalLink,
   Play,
   RotateCw,
+  Terminal,
+  Cpu,
+  Sparkles,
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
@@ -29,9 +31,9 @@ declare global {
 }
 
 /**
- * Demo website that demonstrates client-side tracking.
- * All user clicks and page interactions generate authentic events
- * sent through the tracker script to the Express REST API and MongoDB.
+ * Believable developer cloud SaaS demo website ("TechFlow Cloud").
+ * Real-time event tracking via Pulse Analytics SDK.
+ * All clicks and navigation generate genuine events recorded into MongoDB.
  */
 export default function DemoPage() {
   const [searchQuery, setSearchQuery] = useState('');
@@ -49,7 +51,6 @@ export default function DemoPage() {
   const [notification, setNotification] = useState<string | null>(null);
 
   useEffect(() => {
-    // Track local click counter for reviewer feedback
     const onDocClick = () => {
       setClickCount((c) => c + 1);
     };
@@ -59,23 +60,17 @@ export default function DemoPage() {
 
   const handleTabChange = (tab: 'features' | 'pricing' | 'reviews') => {
     setActiveTab(tab);
-    // Update hash/URL for demonstration of SPA page views
     window.location.hash = tab;
     if (window.PulseTracker) {
       window.PulseTracker.trackPageView(window.location.href);
     }
   };
 
-  /**
-   * Transparently generates genuine events by simulating user clicks
-   * across real clickable elements on the demo page.
-   */
   const handleGenerateDemoActivity = async () => {
     if (simulating) return;
     setSimulating(true);
-    setNotification('Simulating realistic user session interactions...');
+    setNotification('Simulating realistic user interaction trajectory...');
 
-    // Select actual interactive elements on the demo page
     const clickableElements = document.querySelectorAll(
       '[data-demo-interactive="true"]'
     );
@@ -85,7 +80,6 @@ export default function DemoPage() {
       return;
     }
 
-    // Sequentially simulate 5-8 clicks with realistic timing
     const count = Math.min(6, clickableElements.length);
     for (let i = 0; i < count; i++) {
       const el = clickableElements[i % clickableElements.length] as HTMLElement;
@@ -97,7 +91,7 @@ export default function DemoPage() {
         window.PulseTracker.trackClick(clickX, clickY, { is_demo: true });
       }
       setClickCount((c) => c + 1);
-      await new Promise((r) => setTimeout(r, 400));
+      await new Promise((r) => setTimeout(r, 380));
     }
 
     if (window.PulseTracker) {
@@ -105,35 +99,35 @@ export default function DemoPage() {
     }
 
     setSimulating(false);
-    setNotification('✅ Generated 6 realistic click events and flushed queue to API!');
+    setNotification('✅ Generated 6 realistic click events and flushed queue to backend!');
     setTimeout(() => setNotification(null), 4000);
   };
 
   const handleManualFlush = () => {
     if (window.PulseTracker) {
       window.PulseTracker.flush();
-      setNotification('Flushed tracker queue to server');
+      setNotification('Flushed event buffer to server');
       setTimeout(() => setNotification(null), 2500);
     }
   };
 
   return (
-    <div className="min-h-screen bg-white" data-demo-page="true">
-      {/* Dev / Reviewer Tracking Status Bar */}
-      <div className="bg-slate-900 text-slate-100 text-xs py-2 px-4 sticky top-0 z-50 border-b border-slate-700 shadow-sm">
+    <div className="min-h-screen bg-[#090b10] text-slate-200 antialiased font-sans" data-demo-page="true">
+      {/* Reviewer / Telemetry HUD Strip */}
+      <div className="bg-[#0e131f] text-slate-200 text-xs py-2.5 px-4 sticky top-0 z-50 border-b border-slate-800 shadow-md backdrop-blur-md">
         <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <span className="flex items-center gap-1.5 font-medium text-emerald-400">
-              <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span className="flex items-center gap-1.5 font-mono text-[11px] font-semibold text-emerald-400 bg-emerald-950/40 px-2 py-0.5 rounded border border-emerald-500/30">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
               Tracker Active
             </span>
-            <span className="text-slate-400 hidden sm:inline">|</span>
-            <span className="font-mono text-slate-300">
-              Session: <span className="text-white">{sessionId.substring(0, 18)}...</span>
+            <span className="text-slate-600 hidden sm:inline">|</span>
+            <span className="font-mono text-slate-300 text-xs">
+              Session: <span className="text-white font-semibold">{sessionId.substring(0, 18)}...</span>
             </span>
-            <span className="text-slate-400 hidden md:inline">|</span>
-            <span className="text-slate-300 hidden md:inline">
-              Session Clicks: <span className="font-semibold text-emerald-400">{clickCount}</span>
+            <span className="text-slate-600 hidden md:inline">|</span>
+            <span className="text-slate-400 text-xs hidden md:inline font-mono">
+              Clicks: <span className="font-semibold text-emerald-400">{clickCount}</span>
             </span>
           </div>
 
@@ -141,14 +135,15 @@ export default function DemoPage() {
             <button
               onClick={handleGenerateDemoActivity}
               disabled={simulating}
-              className="flex items-center gap-1 bg-blue-600 hover:bg-blue-500 text-white font-medium px-2.5 py-1 rounded transition-colors disabled:opacity-50"
+              className="inline-flex items-center gap-1.5 bg-blue-600 hover:bg-blue-500 text-white font-medium text-xs px-3 py-1 rounded-lg transition-colors disabled:opacity-50 shadow-sm"
+              title="Automatically simulate realistic user clicks"
             >
               <Play className="w-3 h-3" />
-              {simulating ? 'Generating...' : 'Generate Demo Activity'}
+              {simulating ? 'Simulating...' : 'Simulate Activity'}
             </button>
             <button
               onClick={handleManualFlush}
-              className="flex items-center gap-1 bg-slate-800 hover:bg-slate-700 text-slate-200 px-2 py-1 rounded border border-slate-600 transition-colors"
+              className="inline-flex items-center gap-1.5 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-2.5 py-1 rounded-lg border border-slate-700 transition-colors"
               title="Flush event queue to API immediately"
             >
               <RotateCw className="w-3 h-3" />
@@ -156,7 +151,7 @@ export default function DemoPage() {
             </button>
             <Link
               to="/"
-              className="flex items-center gap-1 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-2.5 py-1 rounded transition-colors"
+              className="inline-flex items-center gap-1.5 bg-emerald-600 hover:bg-emerald-500 text-white font-medium text-xs px-3 py-1 rounded-lg transition-colors shadow-sm"
             >
               Dashboard <ExternalLink className="w-3 h-3" />
             </Link>
@@ -165,26 +160,32 @@ export default function DemoPage() {
       </div>
 
       {notification && (
-        <div className="bg-emerald-50 border-b border-emerald-200 text-emerald-800 text-center text-xs py-1.5 px-4 animate-fade-in">
+        <div className="bg-emerald-950/80 border-b border-emerald-500/30 text-emerald-300 text-center text-xs py-2 px-4 animate-fade-in font-mono">
           {notification}
         </div>
       )}
 
-      {/* Navigation */}
-      <header className="border-b border-gray-200 bg-white">
-        <div className="max-w-6xl mx-auto px-4 h-14 flex items-center justify-between">
-          <div className="flex items-center gap-6">
-            <span className="text-lg font-bold text-gray-900 cursor-pointer" data-demo-interactive="true">
-              <Zap className="w-5 h-5 inline text-blue-600 mr-1" />
-              TechFlow
-            </span>
-            <nav className="hidden md:flex items-center gap-2">
+      {/* Modern Developer Navigation Header */}
+      <header className="border-b border-slate-800/80 bg-[#0d1017]/80 backdrop-blur-md">
+        <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-8">
+            <div
+              className="flex items-center gap-2 text-white font-bold tracking-tight cursor-pointer"
+              data-demo-interactive="true"
+            >
+              <div className="w-8 h-8 rounded-lg bg-blue-600 flex items-center justify-center text-white shadow-md shadow-blue-500/20">
+                <Zap className="w-4 h-4" />
+              </div>
+              <span className="text-base tracking-tight">TechFlow</span>
+            </div>
+
+            <nav className="hidden md:flex items-center gap-1">
               <button
                 onClick={() => handleTabChange('features')}
-                className={`text-sm px-3 py-1.5 rounded-md transition-colors ${
+                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
                   activeTab === 'features'
-                    ? 'text-blue-600 bg-blue-50 font-medium'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'text-white bg-slate-800 border border-slate-700'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                 }`}
                 data-demo-interactive="true"
               >
@@ -192,10 +193,10 @@ export default function DemoPage() {
               </button>
               <button
                 onClick={() => handleTabChange('pricing')}
-                className={`text-sm px-3 py-1.5 rounded-md transition-colors ${
+                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
                   activeTab === 'pricing'
-                    ? 'text-blue-600 bg-blue-50 font-medium'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'text-white bg-slate-800 border border-slate-700'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                 }`}
                 data-demo-interactive="true"
               >
@@ -203,10 +204,10 @@ export default function DemoPage() {
               </button>
               <button
                 onClick={() => handleTabChange('reviews')}
-                className={`text-sm px-3 py-1.5 rounded-md transition-colors ${
+                className={`text-xs font-medium px-3 py-1.5 rounded-lg transition-colors ${
                   activeTab === 'reviews'
-                    ? 'text-blue-600 bg-blue-50 font-medium'
-                    : 'text-gray-600 hover:text-gray-900'
+                    ? 'text-white bg-slate-800 border border-slate-700'
+                    : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                 }`}
                 data-demo-interactive="true"
               >
@@ -214,15 +215,16 @@ export default function DemoPage() {
               </button>
             </nav>
           </div>
+
           <div className="flex items-center gap-3">
             <button
-              className="text-sm text-gray-600 hover:text-gray-900 px-3 py-1.5 transition-colors"
+              className="text-xs font-medium text-slate-400 hover:text-white px-3 py-1.5 transition-colors"
               data-demo-interactive="true"
             >
               Sign In
             </button>
             <button
-              className="text-sm bg-blue-600 text-white px-4 py-1.5 rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-sm"
+              className="text-xs font-medium bg-blue-600 text-white px-3.5 py-1.5 rounded-lg hover:bg-blue-500 transition-colors shadow-sm shadow-blue-600/30"
               data-demo-interactive="true"
             >
               Get Started
@@ -232,46 +234,71 @@ export default function DemoPage() {
       </header>
 
       {/* Hero Section */}
-      <section className="bg-gradient-to-b from-slate-50 to-white py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-1.5 bg-blue-50 text-blue-700 px-3 py-1 rounded-full text-xs font-medium mb-4">
-            <Sparkles className="w-3.5 h-3.5" /> Next Generation SaaS Analytics Platform
+      <section className="relative py-20 px-4 overflow-hidden border-b border-slate-800/80 bg-grid-subtle">
+        <div className="max-w-4xl mx-auto text-center relative z-10">
+          <div
+            className="inline-flex items-center gap-2 bg-blue-500/10 text-blue-400 border border-blue-500/20 px-3 py-1 rounded-full text-xs font-mono mb-6 cursor-pointer hover:bg-blue-500/20 transition-colors"
+            data-demo-interactive="true"
+          >
+            <Sparkles className="w-3.5 h-3.5" /> Next-Gen Cloud Platform v2.4 Released
           </div>
-          <h1 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4 leading-tight tracking-tight">
-            Build Better Products with
-            <span className="text-blue-600"> Data-Driven Insights</span>
+
+          <h1 className="text-4xl md:text-5xl font-extrabold text-white mb-5 leading-tight tracking-tight">
+            Build Intelligent Applications at
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-indigo-400 to-emerald-400"> Global Scale</span>
           </h1>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Understand user journeys, track page views, and analyze click heatmaps in real-time.
-            Every interaction on this demo is recorded and visible on the Pulse Analytics dashboard.
+
+          <p className="text-sm md:text-base text-slate-400 mb-8 max-w-2xl mx-auto leading-relaxed">
+            A developer platform combining serverless compute, instant edge databases,
+            and automated telemetry tracking. Every click on this page is captured by Pulse Analytics.
           </p>
+
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <button
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors flex items-center gap-2 shadow-sm"
+              className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 shadow-lg shadow-blue-600/25"
               data-demo-interactive="true"
             >
-              Start Free Trial <ArrowRight className="w-4 h-4" />
+              Deploy Free Cluster <ArrowRight className="w-3.5 h-3.5" />
             </button>
             <button
-              className="bg-white text-gray-700 px-6 py-3 rounded-lg font-medium border border-gray-300 hover:bg-gray-50 transition-colors shadow-sm"
+              className="bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-700 px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors"
               data-demo-interactive="true"
             >
-              Watch Interactive Demo
+              Explore Architecture
             </button>
+          </div>
+
+          {/* Interactive Code Preview Window */}
+          <div className="mt-12 max-w-2xl mx-auto rounded-xl border border-slate-800 bg-[#0d111a] shadow-2xl overflow-hidden text-left">
+            <div className="px-4 py-3 bg-[#0a0d14] border-b border-slate-800 flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-red-500/80" />
+                <span className="w-3 h-3 rounded-full bg-yellow-500/80" />
+                <span className="w-3 h-3 rounded-full bg-emerald-500/80" />
+                <span className="ml-2 text-xs font-mono text-slate-500">pipeline.telemetry.ts</span>
+              </div>
+              <Terminal className="w-4 h-4 text-slate-500" />
+            </div>
+            <div className="p-4 font-mono text-xs text-slate-300 leading-relaxed overflow-x-auto">
+              <p><span className="text-purple-400">import</span> &#123; createTracker &#125; <span className="text-purple-400">from</span> <span className="text-emerald-400">'@pulse/tracker-sdk'</span>;</p>
+              <p className="mt-1 text-slate-500">// Instant automatic session identification & click heatmap</p>
+              <p className="mt-1"><span className="text-blue-400">const</span> analytics = <span className="text-yellow-400">createTracker</span>(&#123; batchSize: <span className="text-amber-400">5</span>, intervalMs: <span className="text-amber-400">2000</span> &#125;);</p>
+              <p><span className="text-slate-400">analytics</span>.<span className="text-yellow-400">observe</span>(document.body);</p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Search Input Section */}
-      <section className="py-6 px-4 max-w-2xl mx-auto">
+      {/* Interactive Search Section */}
+      <section className="py-8 px-4 max-w-2xl mx-auto">
         <div className="relative">
-          <Search className="w-5 h-5 absolute left-3 top-3 text-gray-400" />
+          <Search className="w-4 h-4 absolute left-3.5 top-3 text-slate-500" />
           <input
             type="text"
-            placeholder="Search features, documentation, pricing..."
+            placeholder="Search API endpoints, edge functions, telemetry logs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-2.5 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="w-full pl-10 pr-4 py-2.5 bg-slate-900/80 border border-slate-800 rounded-lg text-xs font-mono text-slate-200 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 transition-all shadow-inner"
             data-demo-interactive="true"
           />
         </div>
@@ -281,37 +308,37 @@ export default function DemoPage() {
       {activeTab === 'features' && (
         <section className="py-12 px-4 max-w-6xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-900">Powerful Analytics Features</h2>
-            <p className="text-gray-500 text-sm mt-1">Everything you need to understand user behavior</p>
+            <h2 className="text-2xl font-bold tracking-tight text-white">Full-Stack Cloud Infrastructure</h2>
+            <p className="text-slate-400 text-xs mt-1">Engineered for low latency and high observability</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
               {
-                icon: <BarChart3 className="w-6 h-6 text-blue-600" />,
-                title: 'Session Analytics',
-                description: 'Group interactions by session with first/last timestamps, view counts, and click ratios.',
+                icon: <Cpu className="w-5 h-5 text-blue-400" />,
+                title: 'Edge Compute Engine',
+                description: 'Distributed V8 isolates executing at over 300 locations worldwide under 10ms.',
               },
               {
-                icon: <Users className="w-6 h-6 text-emerald-600" />,
-                title: 'User Journeys',
-                description: 'Chronological event timelines showing every page view and interaction path taken.',
+                icon: <BarChart3 className="w-5 h-5 text-emerald-400" />,
+                title: 'Real-time Telemetry',
+                description: 'Capture user sessions, bounce dropoffs, and coordinate heatmaps without page lag.',
               },
               {
-                icon: <Shield className="w-6 h-6 text-purple-600" />,
-                title: 'Click Heatmaps',
-                description: 'Accurate click coordinates plotted on wireframe canvas with density heat distribution.',
+                icon: <Shield className="w-5 h-5 text-purple-400" />,
+                title: 'Encrypted Persistence',
+                description: 'MongoDB Atlas integration with resilient batch queue flushing and audit trails.',
               },
             ].map((f) => (
               <div
                 key={f.title}
-                className="bg-white border border-gray-200 rounded-xl p-6 hover:shadow-md transition-shadow cursor-pointer"
+                className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 hover:border-slate-700 hover:bg-slate-900/80 transition-all cursor-pointer group shadow-lg shadow-black/20"
                 data-demo-interactive="true"
               >
-                <div className="p-3 bg-gray-50 rounded-lg w-fit mb-4">{f.icon}</div>
-                <h3 className="text-lg font-semibold text-gray-900 mb-2">{f.title}</h3>
-                <p className="text-sm text-gray-500">{f.description}</p>
-                <div className="mt-4 flex items-center text-xs font-medium text-blue-600 hover:text-blue-800">
-                  Learn more <ChevronRight className="w-3.5 h-3.5 ml-0.5" />
+                <div className="p-2.5 bg-slate-800/80 rounded-lg w-fit mb-4 border border-slate-700/60">{f.icon}</div>
+                <h3 className="text-base font-semibold text-white mb-2">{f.title}</h3>
+                <p className="text-xs text-slate-400 leading-relaxed">{f.description}</p>
+                <div className="mt-4 flex items-center text-xs font-mono text-blue-400 group-hover:text-blue-300">
+                  Inspect docs <ChevronRight className="w-3.5 h-3.5 ml-0.5 group-hover:translate-x-1 transition-transform" />
                 </div>
               </div>
             ))}
@@ -323,44 +350,44 @@ export default function DemoPage() {
       {activeTab === 'pricing' && (
         <section className="py-12 px-4 max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-900">Simple, Transparent Pricing</h2>
-            <p className="text-gray-500 text-sm mt-1">Choose the plan that fits your growth</p>
+            <h2 className="text-2xl font-bold tracking-tight text-white">Transparent Developer Pricing</h2>
+            <p className="text-slate-400 text-xs mt-1">Scale effortlessly from side project to enterprise</p>
           </div>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { name: 'Starter', price: '$0', desc: 'Up to 10k monthly events', popular: false },
-              { name: 'Growth', price: '$49', desc: 'Up to 250k monthly events', popular: true },
-              { name: 'Enterprise', price: '$199', desc: 'Unlimited tracked events', popular: false },
+              { name: 'Developer', price: '$0', desc: 'Up to 25k monthly events', popular: false },
+              { name: 'Production', price: '$49', desc: 'Up to 500k monthly events', popular: true },
+              { name: 'Enterprise', price: '$249', desc: 'Unlimited events & dedicated cluster', popular: false },
             ].map((p) => (
               <div
                 key={p.name}
-                className={`bg-white rounded-xl p-6 border transition-all ${
+                className={`rounded-xl p-6 border transition-all ${
                   p.popular
-                    ? 'border-blue-600 shadow-md ring-1 ring-blue-600'
-                    : 'border-gray-200 hover:shadow-sm'
+                    ? 'border-blue-500/80 bg-slate-900/90 ring-1 ring-blue-500/50 shadow-xl shadow-blue-500/10'
+                    : 'border-slate-800 bg-slate-900/50 hover:border-slate-700'
                 }`}
                 data-demo-interactive="true"
               >
                 {p.popular && (
-                  <span className="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-3 inline-block">
-                    Most Popular
+                  <span className="bg-blue-600 text-white text-[10px] font-mono font-bold uppercase tracking-wider px-2 py-0.5 rounded-full mb-3 inline-block">
+                    Recommended
                   </span>
                 )}
-                <h3 className="text-lg font-bold text-gray-900">{p.name}</h3>
-                <div className="my-3">
-                  <span className="text-3xl font-extrabold text-gray-900">{p.price}</span>
-                  <span className="text-xs text-gray-500"> / month</span>
+                <h3 className="text-base font-bold text-white">{p.name}</h3>
+                <div className="my-3 flex items-baseline gap-1">
+                  <span className="text-3xl font-extrabold font-mono text-white">{p.price}</span>
+                  <span className="text-xs text-slate-500 font-mono"> / month</span>
                 </div>
-                <p className="text-xs text-gray-500 mb-6">{p.desc}</p>
+                <p className="text-xs text-slate-400 mb-6">{p.desc}</p>
                 <button
-                  className={`w-full py-2 px-4 rounded-lg text-sm font-medium transition-colors ${
+                  className={`w-full py-2 px-4 rounded-lg text-xs font-semibold transition-colors ${
                     p.popular
-                      ? 'bg-blue-600 text-white hover:bg-blue-700'
-                      : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
+                      ? 'bg-blue-600 text-white hover:bg-blue-500 shadow-md shadow-blue-600/30'
+                      : 'bg-slate-800 text-slate-300 hover:bg-slate-700 border border-slate-700'
                   }`}
                   data-demo-interactive="true"
                 >
-                  Select Plan
+                  Deploy Plan
                 </button>
               </div>
             ))}
@@ -372,101 +399,78 @@ export default function DemoPage() {
       {activeTab === 'reviews' && (
         <section className="py-12 px-4 max-w-4xl mx-auto">
           <div className="text-center mb-10">
-            <h2 className="text-2xl font-bold text-gray-900">What Our Users Say</h2>
-            <p className="text-gray-500 text-sm mt-1">Real feedback from actual product teams</p>
+            <h2 className="text-2xl font-bold tracking-tight text-white">Trusted by Engineering Teams</h2>
+            <p className="text-slate-400 text-xs mt-1">Real feedback from infrastructure engineers</p>
           </div>
           <div className="grid md:grid-cols-2 gap-6">
             {[
               {
-                quote: 'Pulse Analytics gave us deep visibility into our conversion drop-offs within 5 minutes.',
+                quote: 'Pulse Analytics gave our telemetry pipeline zero-overhead click precision within minutes.',
                 author: 'Sarah Chen',
-                role: 'Head of Product, Acme Corp',
+                role: 'Staff Infrastructure Engineer, Acme Global',
               },
               {
-                quote: 'The heatmap visualization works flawlessly without bogging down our web application.',
+                quote: 'The heatmap visualization works flawlessly without impacting client performance.',
                 author: 'Marcus Vance',
-                role: 'Lead Architect, FinTech Global',
+                role: 'VP of Engineering, FinTech Cloud',
               },
             ].map((t) => (
               <div
                 key={t.author}
-                className="bg-white border border-gray-200 rounded-xl p-6 cursor-pointer hover:shadow-md transition-shadow"
+                className="rounded-xl border border-slate-800 bg-slate-900/60 p-6 cursor-pointer hover:border-slate-700 transition-all shadow-lg shadow-black/20"
                 data-demo-interactive="true"
               >
                 <div className="flex gap-1 mb-3">
                   {[1, 2, 3, 4, 5].map((s) => (
-                    <Star key={s} className="w-4 h-4 fill-amber-400 text-amber-400" />
+                    <Star key={s} className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
                   ))}
                 </div>
-                <p className="text-gray-700 text-sm mb-4 italic">"{t.quote}"</p>
-                <p className="text-sm font-semibold text-gray-900">{t.author}</p>
-                <p className="text-xs text-gray-500">{t.role}</p>
+                <p className="text-slate-300 text-xs mb-4 italic leading-relaxed">"{t.quote}"</p>
+                <p className="text-xs font-semibold text-white">{t.author}</p>
+                <p className="text-[11px] font-mono text-slate-500">{t.role}</p>
               </div>
             ))}
           </div>
         </section>
       )}
 
-      {/* CTA Section */}
-      <section className="py-14 px-4 bg-slate-900 text-white mt-12">
+      {/* Bottom CTA Banner */}
+      <section className="py-16 px-4 border-t border-slate-800/80 bg-[#0d1017]">
         <div className="max-w-4xl mx-auto text-center">
-          <Globe className="w-10 h-10 text-blue-400 mx-auto mb-3" />
-          <h2 className="text-2xl font-bold mb-2">Ready to inspect your analytics?</h2>
-          <p className="text-slate-400 text-sm mb-6 max-w-lg mx-auto">
-            Switch over to the Pulse Analytics Dashboard to see your session and heatmaps updated in real time.
+          <Globe className="w-8 h-8 text-blue-400 mx-auto mb-3" />
+          <h2 className="text-xl font-bold text-white mb-2">Ready to inspect your analytics?</h2>
+          <p className="text-slate-400 text-xs mb-6 max-w-md mx-auto">
+            Switch over to the Pulse Analytics Dashboard to see your generated sessions and click heatmaps updated in real time.
           </p>
           <div className="flex justify-center gap-3">
             <Link
               to="/"
-              className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition-colors inline-flex items-center gap-2"
+              className="bg-blue-600 hover:bg-blue-500 text-white px-5 py-2.5 rounded-lg text-xs font-semibold transition-colors inline-flex items-center gap-2 shadow-lg shadow-blue-600/20"
               data-demo-interactive="true"
             >
-              Open Analytics Dashboard <ExternalLink className="w-4 h-4" />
+              Open Analytics Dashboard <ExternalLink className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-gray-200 py-6 px-4 bg-white text-xs text-gray-500">
+      <footer className="border-t border-slate-800/80 py-6 px-4 text-xs font-mono text-slate-500">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-3">
-          <p>© 2024 TechFlow Demo. Tracked with Pulse Analytics.</p>
+          <p>© 2024 TechFlow Cloud Platform. Tracked with Pulse Analytics.</p>
           <div className="flex items-center gap-4">
-            <span className="hover:text-gray-700 cursor-pointer" data-demo-interactive="true">
+            <span className="hover:text-slate-300 cursor-pointer" data-demo-interactive="true">
               Privacy Policy
             </span>
-            <span className="hover:text-gray-700 cursor-pointer" data-demo-interactive="true">
+            <span className="hover:text-slate-300 cursor-pointer" data-demo-interactive="true">
               Terms of Service
             </span>
-            <span className="hover:text-gray-700 cursor-pointer" data-demo-interactive="true">
+            <span className="hover:text-slate-300 cursor-pointer" data-demo-interactive="true">
               Documentation
             </span>
           </div>
         </div>
       </footer>
     </div>
-  );
-}
-
-function Sparkles(props: React.SVGProps<SVGSVGElement>) {
-  return (
-    <svg
-      {...props}
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z" />
-      <path d="M5 3v4" />
-      <path d="M19 17v4" />
-      <path d="M3 5h4" />
-      <path d="M17 19h4" />
-    </svg>
   );
 }

@@ -12,6 +12,16 @@ Pulse Analytics provides end-to-end visibility into website traffic and interact
 - **Modern Analytics Dashboard**: A React, TypeScript, and Tailwind CSS web application displaying real-time metrics, interactive charts, session journeys, and page click heatmaps.
 - **Interactive Demo Website**: A sample SaaS landing page instrumented with the tracking script to demonstrate natural event recording and pipeline verification.
 
+### Interface Gallery
+
+| Analytics Overview | Click Heatmap Visualizer |
+|:---:|:---:|
+| ![Analytics Overview](docs/screenshots/overview.png) | ![Click Heatmap](docs/screenshots/heatmap.png) |
+
+| User Journey Trace | Session Explorer |
+|:---:|:---:|
+| ![User Journey](docs/screenshots/user_journey.png) | ![Session Explorer](docs/screenshots/sessions.png) |
+
 ---
 
 ## 2. Features
