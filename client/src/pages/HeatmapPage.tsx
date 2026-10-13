@@ -69,14 +69,17 @@ export default function HeatmapPage() {
       height: 900,
     };
 
-    // 2. Draw density clouds if mode is 'composite' or 'density'
+    // 2. Draw density clouds if mode is 'composite' || 'density'
     if (mode === 'composite' || mode === 'density') {
       if (typeof ctx.save === 'function') ctx.save();
       ctx.globalCompositeOperation = 'multiply';
 
       clicks.forEach((click) => {
-        const nx = (click.x / refViewport.width) * W;
-        const ny = (click.y / refViewport.height) * H;
+        const vp = (click.viewport && click.viewport.width && click.viewport.height)
+          ? click.viewport
+          : refViewport;
+        const nx = (click.x / vp.width) * W;
+        const ny = (click.y / vp.height) * H;
         const radius = 50;
 
         const grad = ctx.createRadialGradient(nx, ny, 0, nx, ny, radius);
@@ -94,11 +97,14 @@ export default function HeatmapPage() {
       if (typeof ctx.restore === 'function') ctx.restore();
     }
 
-    // 3. Draw radar crosshairs & pinpoint dots if mode is 'composite' or 'radar'
+    // 3. Draw radar crosshairs & pinpoint dots if mode is 'composite' || 'radar'
     if (mode === 'composite' || mode === 'radar') {
       clicks.forEach((click, idx) => {
-        const nx = (click.x / refViewport.width) * W;
-        const ny = (click.y / refViewport.height) * H;
+        const vp = (click.viewport && click.viewport.width && click.viewport.height)
+          ? click.viewport
+          : refViewport;
+        const nx = (click.x / vp.width) * W;
+        const ny = (click.y / vp.height) * H;
 
         // Outer marker ring
         ctx.beginPath();
@@ -150,8 +156,11 @@ export default function HeatmapPage() {
     let found = null;
     let minDist = 32;
     heatmapResult.clicks.forEach((c) => {
-      const nx = (c.x / refViewport.width) * canvas.width;
-      const ny = (c.y / refViewport.height) * canvas.height;
+      const vp = (c.viewport && c.viewport.width && c.viewport.height)
+        ? c.viewport
+        : refViewport;
+      const nx = (c.x / vp.width) * canvas.width;
+      const ny = (c.y / vp.height) * canvas.height;
       const dist = Math.hypot(nx - canvasX, ny - canvasY);
       if (dist < minDist) {
         minDist = dist;

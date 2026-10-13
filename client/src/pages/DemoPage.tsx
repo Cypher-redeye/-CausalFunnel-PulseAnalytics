@@ -214,13 +214,23 @@ export default function DemoPage() {
 
           <div className="flex items-center gap-3">
             <button
-              className="text-xs font-semibold text-stone-600 hover:text-stone-900 px-3 py-1.5 transition-colors"
+              onClick={() => {
+                setNotification('⚡ "Sign In" clicked — recorded & flushed to Pulse Analytics!');
+                if (window._pulseTracker) window._pulseTracker.flush();
+                setTimeout(() => setNotification(null), 3000);
+              }}
+              className="text-xs font-semibold text-stone-600 hover:text-stone-900 px-3 py-1.5 transition-colors cursor-pointer"
               data-demo-interactive="true"
             >
               Sign In
             </button>
             <button
-              className="text-xs font-semibold bg-stone-900 text-white px-4 py-2 rounded-xl hover:bg-stone-800 transition-all shadow-xs active:scale-95"
+              onClick={() => {
+                setNotification('⚡ "Get Started" clicked — recorded & flushed to Pulse Analytics!');
+                if (window._pulseTracker) window._pulseTracker.flush();
+                setTimeout(() => setNotification(null), 3000);
+              }}
+              className="text-xs font-semibold bg-stone-900 text-white px-4 py-2 rounded-xl hover:bg-stone-800 transition-all shadow-xs active:scale-95 cursor-pointer"
               data-demo-interactive="true"
             >
               Get Started
@@ -251,13 +261,23 @@ export default function DemoPage() {
 
           <div className="flex items-center justify-center gap-3 flex-wrap">
             <button
-              className="bg-stone-900 hover:bg-stone-800 text-white px-6 py-3 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-sm active:scale-95"
+              onClick={() => {
+                setNotification('⚡ "Deploy Free Cluster" clicked — recorded & flushed to Pulse Analytics!');
+                if (window._pulseTracker) window._pulseTracker.flush();
+                setTimeout(() => setNotification(null), 3000);
+              }}
+              className="bg-stone-900 hover:bg-stone-800 text-white px-6 py-3 rounded-xl text-xs font-bold transition-all flex items-center gap-2 shadow-sm active:scale-95 cursor-pointer"
               data-demo-interactive="true"
             >
               Deploy Free Cluster <ArrowRight className="w-4 h-4" />
             </button>
             <button
-              className="bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 px-6 py-3 rounded-xl text-xs font-semibold transition-colors shadow-2xs"
+              onClick={() => {
+                setNotification('⚡ "Explore Architecture" clicked — recorded & flushed to Pulse Analytics!');
+                if (window._pulseTracker) window._pulseTracker.flush();
+                setTimeout(() => setNotification(null), 3000);
+              }}
+              className="bg-white hover:bg-stone-50 text-stone-700 border border-stone-200 px-6 py-3 rounded-xl text-xs font-semibold transition-colors shadow-2xs active:scale-95 cursor-pointer"
               data-demo-interactive="true"
             >
               Explore Architecture
