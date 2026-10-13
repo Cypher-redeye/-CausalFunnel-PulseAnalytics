@@ -15,8 +15,8 @@ Pulse Analytics is a lightweight, privacy-focused web analytics platform inspire
 
 | Component | Service | Live Endpoint | Status |
 |---|---|---|---|
-| **Analytics Dashboard** | Vercel | [https://causalfunnel-pulseanalytics.vercel.app](https://causalfunnel-pulseanalytics.vercel.app) | 🟢 Live |
-| **Interactive Demo Site** | Vercel | [https://causalfunnel-pulseanalytics.vercel.app/demo](https://causalfunnel-pulseanalytics.vercel.app/demo) | 🟢 Live |
+| **Analytics Dashboard** | Vercel | [https://causal-funnel-pulse-analytics-steel.vercel.app](https://causal-funnel-pulse-analytics-steel.vercel.app) | 🟢 Live |
+| **Interactive Demo Site** | Vercel | [https://causal-funnel-pulse-analytics-steel.vercel.app/demo](https://causal-funnel-pulse-analytics-steel.vercel.app/demo) | 🟢 Live |
 | **REST API Ingestion** | Render | [https://causalfunnel-pulseanalytics.onrender.com/api](https://causalfunnel-pulseanalytics.onrender.com/api) | 🟢 Live |
 | **Backend Health Check** | Render | [https://causalfunnel-pulseanalytics.onrender.com/api/health](https://causalfunnel-pulseanalytics.onrender.com/api/health) | 🟢 `{"success": true}` |
 | **Database Cluster** | MongoDB Atlas | M0 Free Multi-Cloud Tier | 🟢 Connected |
@@ -331,7 +331,7 @@ To track events on any live website using your deployed infrastructure:
 ```html
 <!-- Pulse Analytics Production Tracker -->
 <script
-  src="https://causalfunnel-pulseanalytics.vercel.app/tracker.js"
+  src="https://causal-funnel-pulse-analytics-steel.vercel.app/tracker.js"
   data-api-url="https://causalfunnel-pulseanalytics.onrender.com/api"
   defer
 ></script>
