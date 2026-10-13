@@ -5,7 +5,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Search,
-  Users,
   Copy,
   Check,
   ArrowRight,
@@ -13,7 +12,7 @@ import {
 import { fetchSessions } from '../services/api';
 import { useAsync } from '../hooks/useAsync';
 import { LoadingState, ErrorState, EmptyState } from '../components/ui';
-import { formatDate, truncateSessionId } from '../utils/formatters';
+import { formatDate } from '../utils/formatters';
 import type { SessionSummary } from '../types';
 
 export default function SessionsPage() {

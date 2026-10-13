@@ -7,7 +7,6 @@ import {
   Activity,
   ArrowUpRight,
   Clock,
-  Sparkles,
 } from 'lucide-react';
 import {
   AreaChart,

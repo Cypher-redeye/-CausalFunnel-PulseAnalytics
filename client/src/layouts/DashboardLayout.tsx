@@ -10,7 +10,6 @@ import {
   ExternalLink,
   ChevronRight,
   Database,
-  CheckCircle2,
 } from 'lucide-react';
 import { useState } from 'react';
 

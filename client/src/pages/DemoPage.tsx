@@ -17,6 +17,17 @@ import {
   Terminal,
 } from 'lucide-react';
 
+declare global {
+  interface Window {
+    _pulseTracker?: {
+      flush: () => void;
+      trackPageView?: (url: string) => void;
+      trackClick?: (x: number, y: number) => void;
+      getSessionId?: () => string;
+    };
+  }
+}
+
 export default function DemoPage() {
   const [clickCount, setClickCount] = useState(0);
   const [activeTab, setActiveTab] = useState<'features' | 'pricing' | 'reviews'>('features');

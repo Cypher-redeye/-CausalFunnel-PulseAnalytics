@@ -1,4 +1,4 @@
-import { Loader2, AlertCircle, Inbox, RefreshCw, Activity } from 'lucide-react';
+import { Loader2, AlertCircle, Inbox, RefreshCw } from 'lucide-react';
 import React from 'react';
 
 interface LoadingStateProps {

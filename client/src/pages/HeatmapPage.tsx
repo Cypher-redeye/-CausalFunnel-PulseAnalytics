@@ -5,7 +5,6 @@ import {
   Crosshair,
   Info,
   Globe,
-  Layers,
 } from 'lucide-react';
 import { fetchTrackedPages, fetchHeatmapData } from '../services/api';
 import { useAsync } from '../hooks/useAsync';
