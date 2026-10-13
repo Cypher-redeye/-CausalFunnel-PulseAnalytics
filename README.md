@@ -17,8 +17,8 @@ Pulse Analytics is a lightweight, privacy-focused web analytics platform inspire
 |---|---|---|---|
 | **Analytics Dashboard** | Vercel | [https://causalfunnel-pulseanalytics.vercel.app](https://causalfunnel-pulseanalytics.vercel.app) | 🟢 Live |
 | **Interactive Demo Site** | Vercel | [https://causalfunnel-pulseanalytics.vercel.app/demo](https://causalfunnel-pulseanalytics.vercel.app/demo) | 🟢 Live |
-| **REST API Ingestion** | Render | [https://pulse-analytics-api.onrender.com/api](https://pulse-analytics-api.onrender.com/api) | 🟢 Live |
-| **Backend Health Check** | Render | [https://pulse-analytics-api.onrender.com/api/health](https://pulse-analytics-api.onrender.com/api/health) | 🟢 `{"success": true}` |
+| **REST API Ingestion** | Render | [https://causalfunnel-pulseanalytics.onrender.com/api](https://causalfunnel-pulseanalytics.onrender.com/api) | 🟢 Live |
+| **Backend Health Check** | Render | [https://causalfunnel-pulseanalytics.onrender.com/api/health](https://causalfunnel-pulseanalytics.onrender.com/api/health) | 🟢 `{"success": true}` |
 | **Database Cluster** | MongoDB Atlas | M0 Free Multi-Cloud Tier | 🟢 Connected |
 
 > **Note**: Free-tier cloud instances (Render) sleep when idle. The first request may take ~30-40 seconds to spin up, after which responses return in under 50ms.
@@ -293,9 +293,9 @@ flowchart TD
    | `CLIENT_URL` | `*` | Permissive for cross-domain analytics tracking |
    | `RATE_LIMIT_WINDOW_MS` | `60000` | 1 minute window |
    | `RATE_LIMIT_MAX_REQUESTS` | `300` | Permissive for production tracking |
-5. Click **Create Web Service**. Once deployed, Render will provide your public URL (e.g. `https://pulse-analytics-api.onrender.com`).
+5. Click **Create Web Service**. Once deployed, Render will provide your public URL (`https://causalfunnel-pulseanalytics.onrender.com`).
 6. Verify the live health check in your browser:
-   `https://pulse-analytics-api.onrender.com/api/health` → `{"success": true, "database": "connected"}`.
+   `https://causalfunnel-pulseanalytics.onrender.com/api/health` → `{"success": true, "database": "connected"}`.
 
 *(Alternatively, Render Blueprint users can automatically apply the bundled `render.yaml` with one click).*
 
@@ -310,12 +310,12 @@ flowchart TD
 4. Expand **Environment Variables** and add:
    | Key | Value |
    |---|---|
-   | `VITE_API_URL` | `https://pulse-analytics-api.onrender.com/api` *(Your Render backend URL from Step 2)* |
+   | `VITE_API_URL` | `https://causalfunnel-pulseanalytics.onrender.com/api` |
 5. Click **Deploy**. Vercel will build and assign your domain (e.g. `https://causalfunnel-pulseanalytics.vercel.app`).
 6. Deep routing is automatically handled by the included `client/vercel.json` rewrite configuration.
 
 ### Step 4: End-to-End Production Verification Checklist
-- [x] **Backend Health**: `GET https://pulse-analytics-api.onrender.com/api/health` returns HTTP 200 with database connected.
+- [x] **Backend Health**: `GET https://causalfunnel-pulseanalytics.onrender.com/api/health` returns HTTP 200 with database connected.
 - [x] **Frontend Ingestion**: Open the deployed demo page (`https://<your-frontend>.vercel.app/demo`), click interactive elements, and verify the floating tracker badge shows live captured events.
 - [x] **Dashboard Persistence**: Open the dashboard (`https://<your-frontend>.vercel.app/`), verify the session appears in the Sessions table, and confirm click heatmap dots render on the live canvas.
 - [x] **Third-Party Tracker Test**: Embed the `<script>` tag in any external HTML page; verify events ingest cleanly without CORS or mixed-content errors.
@@ -332,7 +332,7 @@ To track events on any live website using your deployed infrastructure:
 <!-- Pulse Analytics Production Tracker -->
 <script
   src="https://causalfunnel-pulseanalytics.vercel.app/tracker.js"
-  data-api-url="https://pulse-analytics-api.onrender.com/api"
+  data-api-url="https://causalfunnel-pulseanalytics.onrender.com/api"
   defer
 ></script>
 ```
