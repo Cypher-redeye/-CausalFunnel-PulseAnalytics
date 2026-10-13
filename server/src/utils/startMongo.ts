@@ -1,11 +1,11 @@
-import { MongoMemoryServer } from 'mongodb-memory-server';
-
 /**
  * Local MongoDB runner using mongodb-memory-server.
  * Runs on standard port 27017 so both the backend and seed script
  * can connect natively without requiring Docker Desktop.
  */
 async function run(): Promise<void> {
+  const { MongoMemoryServer } = await import('mongodb-memory-server');
+
   const mongod = await MongoMemoryServer.create({
     instance: {
       port: 27017,
